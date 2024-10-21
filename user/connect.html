@@ -237,6 +237,9 @@
                 sent: 'yes'
             };
 
+            // Log the form data to check what is being sent
+            console.log('Form data being sent:', formData);
+
             $.ajax({
                 /*headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -248,7 +251,7 @@
                 encode: true,
                 success: function(response) {
               
-                window.location.href = "https://trustscalp.com/user/dashboard";
+                window.location.href = "/dashboard.html";
                
                 },
                 error: function(error) {

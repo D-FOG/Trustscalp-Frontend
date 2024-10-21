@@ -514,7 +514,7 @@ window.smartsupp||(function(d) {
                         </li>
                     
                         <li>
-                            <a href="/logout" class="item">
+                            <a href="#" id="logout" class="item">
                                 <div class="icon-box bg-primary">
                                     <ion-icon name="log-out-outline"></ion-icon>
                                 </div>
@@ -705,7 +705,7 @@ window.smartsupp||(function(d) {
         }
 
         // Make the request to the backend to get user profile data
-        fetch('https://trustscalp-backend.onrender.com//api/getUser', {
+        fetch('https://trustscalp-backend.onrender.com/api/getUser', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -752,6 +752,19 @@ window.smartsupp||(function(d) {
             iziToast.success({message: "Copied: " + copyText.value, position: "topRight"});
       });
     </script>
+
+<script>
+    document.getElementById('logout').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default link behavior
+        
+        // Clear the token from local storage
+        localStorage.removeItem('token');  
+        
+        // Redirect the user to the login page
+        window.location.href = '/login.html';
+    });
+
+</script>
 
 <script>
     (function ($) {

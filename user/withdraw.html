@@ -111,7 +111,7 @@ window.smartsupp||(function(d) {
             <div class="row mb-60-80 justify-content-center">
                <div class="col-md-12">
                     <div class="right float-right mb-5">
-                        <a href="/user/withdraw/history" class="btn cmn-btn">
+                        <a href="/user/withdraw/history.html" class="btn cmn-btn">
                             Withdraw History                            
                         </a>
                     </div>
@@ -385,7 +385,7 @@ window.smartsupp||(function(d) {
                         </div>
                         <div class="in">
                             <strong id="profileName"> Mark Mark </strong>
-                            <div id="profirleUsername" class="text-muted">Hotmark</div>
+                            <div id="profileUsername" class="text-muted">Hotmark</div>
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -491,7 +491,7 @@ window.smartsupp||(function(d) {
                         </li>
                   
                         <li>
-                            <a href="/logout" class="item">
+                            <a href="#" id="logout" class="item">
                                 <div class="icon-box bg-primary">
                                     <ion-icon name="log-out-outline"></ion-icon>
                                 </div>
@@ -682,7 +682,7 @@ window.smartsupp||(function(d) {
         }
 
         // Make the request to the backend to get user profile data
-        fetch('https://trustscalp-backend.onrender.com//api/getUser', {
+        fetch('https://trustscalp-backend.onrender.com/api/getUser', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -713,6 +713,19 @@ window.smartsupp||(function(d) {
 
     // Call the function when the page loads
     document.addEventListener('DOMContentLoaded', fetchUserProfile);
+</script>
+
+<script>
+    document.getElementById('logout').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default link behavior
+        
+        // Clear the token from local storage
+        localStorage.removeItem('token');  
+        
+        // Redirect the user to the login page
+        window.location.href = '/login.html';
+    });
+
 </script>
      
         <script>
