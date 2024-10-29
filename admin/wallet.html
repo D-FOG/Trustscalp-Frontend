@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Wallet Management</title>
+    <link rel="stylesheet" href="styleroot/styles.css">
+    <!-- CDN for Icons (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="admin-profile">
+                <img src="https://via.placeholder.com/80" alt="Admin Profile" class="admin-img">
+                <h2 class="admin-name">Admin Name</h2>
+                <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="wallet.html" class="active"><i class="fas fa-wallet"></i> Wallet Management</a></li>
+                <li><a href="deposit.html" class="active"><i class="fas fa-wallet"></i> Deposit Management</a></li>
+                <li><a href="support.html" class="active"><i class="fas fa-wallet"></i> Support </a></li>
+                <li><a href="analytics.html" class="active"><i class="fas fa-wallet"></i> Analytics</a></li>
+                <li><a href="withdraw.html" class="active"><i class="fas fa-wallet"></i> Withdrawals</a></li>
+                <li><a href="audit.html" class="active"><i class="fas fa-wallet"></i> Audit</a></li>
+                <li><a href="adminProfile.html" class="active"><i class="fas fa-wallet"></i> Admin Profile</a></li>
+                <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content: Wallet Management -->
+        <div class="main-content">
+            <section class="wallet-management" id="wallet-management">
+                <header class="main-header">
+                    <h1>Wallet Management</h1>
+                </header>
+                <div class="table-container">
+                    <table class="wallet-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Wallet Balance</th>
+                                <th>Pending Withdrawals</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wallet-table-body">
+                            <!-- Dynamic wallet data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Support Management</title>
+    <link rel="stylesheet" href="styleroot/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <img src="styleroot/admin-img.png" alt="Admin Image" id="adminImage" class="admin-image">
+            <p id="adminName">Admin Name</p>
+            <button id="logoutButton">Logout</button>
+            <ul>
+                <li><a href="wallet.html">Wallet Management</a></li>
+                <li><a href="withdrawal.html">Withdrawal Management</a></li>
+                <li><a href="deposit.html">Deposit Management</a></li>
+                <li><a href="profile.html">Profile Management</a></li>
+                <li><a href="audit.html">Audit Log</a></li>
+                <li><a href="support.html" class="active">Support Management</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Support Management</h1>
+            <table id="supportTicketsTable">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>User</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ticket entries will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

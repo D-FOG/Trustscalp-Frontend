@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Analytics and Reports</title>
+    <link rel="stylesheet" href="styleroot/styles.css">
+    <!-- Chat CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <img src="styleroot/admin-img.png" alt="Admin Image" id="adminImage" class="admin-image">
+            <p id="adminName">Admin Name</p>
+            <button id="logoutButton">Logout</button>
+            <ul>
+                <li><a href="wallet.html">Wallet Management</a></li>
+                <li><a href="withdrawal.html">Withdrawal Management</a></li>
+                <li><a href="deposit.html">Deposit Management</a></li>
+                <li><a href="profile.html">Profile Management</a></li>
+                <li><a href="audit.html">Audit Log</a></li>
+                <li><a href="support.html">Support Management</a></li>
+                <li><a href="analytics.html" class="active">Analytics & Reports</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Analytics & Reports</h1>
+            <div id="reportMetrics">
+                <h2>Metrics Overview</h2>
+                <div class="metrics-container">
+                    <div class="metric">
+                        <h3>Total Users</h3>
+                        <p id="totalUsers">1000</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Total Withdrawals</h3>
+                        <p id="totalWithdrawals">$10,000</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Total Deposits</h3>
+                        <p id="totalDeposits">$15,000</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reportGeneration">
+                <h2>Generate Report</h2>
+                <button id="generateReportButton">Generate Report</button>
+            </div>
+
+            <div id="chatContainer">
+                <h2>Live Chat</h2>
+                <div id="chatBox"></div>
+                <input type="text" id="chatInput" placeholder="Type your message..." />
+                <button id="sendChatButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

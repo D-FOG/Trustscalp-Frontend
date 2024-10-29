@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Management</title>
+    <link rel="stylesheet" href="styleroot/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="admin-profile">
+                <img src="admin-image.jpg" alt="Admin Image" class="admin-image">
+                <h2 class="admin-name">Admin Name</h2>
+                <button class="logout-button">Logout</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="user-management.html">User Management</a></li>
+                <li><a href="wallet.html">Wallet Management</a></li>
+                <li><a href="withdrawal.html">Withdrawal Management</a></li>
+                <li><a href="deposit.html" class="active">Deposit Management</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <h1>Deposit Management</h1>
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="depositTableBody">
+                    <!-- Deposit rows will be populated via JS -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

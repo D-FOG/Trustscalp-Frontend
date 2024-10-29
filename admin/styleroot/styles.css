@@ -1,0 +1,373 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+}
+
+.admin-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+}
+
+.admin-profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.admin-name {
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin-top: 40px;
+}
+
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    background-color: #34495e;
+    border-radius: 5px;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.main-header {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.user-table, .wallet-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td, .wallet-table th, .wallet-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-table th, .wallet-table th {
+    background-color: #3498db;
+    color: white;
+}
+
+.user-table td button, .wallet-table td button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2980b9;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-table td button:hover, .wallet-table td button:hover {
+    background-color: #090d0c;
+}
+
+.withdrawal-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.withdrawal-table th, .withdrawal-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.withdrawal-table th {
+    background-color: #3498db;
+    color: white;
+}
+
+.action-buttons button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.approve-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+
+/* Update the table styling for deposit management (shared with other pages) */
+.responsive-table th, .responsive-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.responsive-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status chip for deposit status */
+.status-pending {
+    background-color: orange;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+}
+
+.status-approved {
+    background-color: green;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+}
+
+.status-rejected {
+    background-color: red;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+}
+
+/* Add hover effect for action buttons */
+.action-button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Profile Management Styles */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#updateProfileButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#updateProfileButton:hover {
+    background-color: #45a049;
+}
+
+
+/* Audit Log Styles */
+#auditLogTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#auditLogTable th, #auditLogTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+#auditLogTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#auditLogTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#auditLogTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Support Management Styles */
+#supportTicketsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#supportTicketsTable th, #supportTicketsTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+#supportTicketsTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#supportTicketsTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#supportTicketsTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#supportTicketsTable .btn-approve,
+#supportTicketsTable .btn-reject {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#supportTicketsTable .btn-approve {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+#supportTicketsTable .btn-reject {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+/* Analytics and Reports Styles */
+#reportMetrics {
+    margin-top: 20px;
+}
+
+.metrics-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.metric {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+}
+
+#reportGeneration {
+    margin-top: 30px;
+}
+
+#chatContainer {
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+#chatBox {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#chatInput {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#sendChatButton {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .admin-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}

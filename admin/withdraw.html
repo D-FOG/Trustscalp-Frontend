@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleroot/styles.css">
+    <title>Withdrawal Management</title>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <ul>
+                <li><a href="index.html">User Management</a></li>
+                <li><a href="wallet.html">Wallet Management</a></li>
+                <li class="active"><a href="withdrawal.html">Withdrawal Management</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <img src="admin-profile.jpg" alt="Admin Image" class="admin-image">
+                <span class="admin-name">Admin Name</span>
+            </div>
+            
+            <h1>Withdrawal Management</h1>
+            
+            <!-- Withdrawal Table -->
+            <div class="table-container">
+                <table class="withdrawal-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Amount</th>
+                            <th>Requested Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="withdrawalTableBody">
+                        <!-- Pending withdrawal requests will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile Management</title>
+    <link rel="stylesheet" href="styleroot/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <img src="styleroot/admin-img.png" alt="Admin Image" id="adminImage" class="admin-image">
+            <p id="adminName">Admin Name</p>
+            <button id="logoutButton">Logout</button>
+            <ul>
+                <li><a href="wallet.html">Wallet Management</a></li>
+                <li><a href="withdrawal.html">Withdrawal Management</a></li>
+                <li><a href="deposit.html">Deposit Management</a></li>
+                <li><a href="profile.html" class="active">Profile Management</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Profile Management</h1>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="adminName">Name:</label>
+                    <input type="text" id="adminNameInput" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="adminEmail">Email:</label>
+                    <input type="email" id="adminEmailInput" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password:</label>
+                    <input type="password" id="adminPasswordInput" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label for="adminImageUpload">Profile Image:</label>
+                    <input type="file" id="adminImageUpload" accept="image/*">
+                </div>
+                <button type="submit" id="updateProfileButton">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
