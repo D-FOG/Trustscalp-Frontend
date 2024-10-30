@@ -76,28 +76,56 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function(){
-            // Check for mobile view
-            if (window.innerWidth < 768) { // Adjust the width as needed
-                // Create an overlay message
-                const overlay = document.createElement('div');
-                overlay.classList.add('overlay');
+             //for the logout
+             fetch('sidebar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('sidebar-container').innerHTML = data;
 
-                // Add overlay content
-                overlay.innerHTML = `
-                    <div class="overlay-content">
-                        <h1>This site is best viewed on a PC, desktop, laptop, or tablet.</h1>
-                        <button id="close-overlay" class="btn btn-light">Close</button>
-                    </div>
-                `;
-
-                // Append the overlay to the body
-                document.body.appendChild(overlay);
-
-                // Close button functionality
-                document.getElementById('close-overlay').addEventListener('click', function() {
-                    window.location.href = '/index.html'; // Replace with your login page URL
+                    // Set up logout button event listener
+                    const logoutBtn = document.querySelector('.logout-btn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function () {
+                            // Perform logout actions
+                            window.location.href = '/admin/login.html';
+                        });
+                    }
                 });
+            // Function to check for mobile view and display overlay
+            function checkMobileView() {
+                if (window.innerWidth < 768) {
+                    // If overlay already exists, do not recreate
+                    if (!document.querySelector('.overlay')) {
+                        // Create an overlay message
+                        const overlay = document.createElement('div');
+                        overlay.classList.add('overlay');
+
+                        // Add overlay content
+                        overlay.innerHTML = `
+                            <div class="overlay-content">
+                                <h1>This site is best viewed on a PC, desktop, laptop, or tablet.</h1>
+                                <button id="close-overlay" class="btn btn-light">Close</button>
+                            </div>
+                        `;
+
+                        // Append the overlay to the body
+                        document.body.appendChild(overlay);
+
+                        // Redirect on overlay close
+                        document.getElementById('close-overlay').addEventListener('click', function() {
+                            window.location.href = '/admin/login.html'; // Change to desired page
+                        });
+                    }
+                } else {
+                    // Remove overlay if switching to larger screen
+                    const overlay = document.querySelector('.overlay');
+                    if (overlay) overlay.remove();
+                }
             }
+
+            // Initial check and listener for resizing
+            checkMobileView();
+            window.addEventListener('resize', checkMobileView);
         });
     </script>
 </body>

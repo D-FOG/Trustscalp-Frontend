@@ -161,7 +161,13 @@ body {
     color: white;
 }
 
-
+.responsive-table{
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
 /* Update the table styling for deposit management (shared with other pages) */
 .responsive-table th, .responsive-table td {
     padding: 12px;
@@ -172,6 +178,7 @@ body {
 .responsive-table tbody tr:hover {
     background-color: #f1f1f1;
 }
+
 
 /* Status chip for deposit status */
 .status-pending {
@@ -195,13 +202,27 @@ body {
     border-radius: 15px;
 }
 
+.action-button{
+    background-color: #2980b9;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
 /* Add hover effect for action buttons */
 .action-button:hover {
-    background-color: #0056b3;
-    color: white;
+    background-color: #090d0c;
 }
 
 /* Profile Management Styles */
+#profileForm{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
 .form-group {
     margin-bottom: 15px;
 }
@@ -219,6 +240,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 
 #updateProfileButton {
     background-color: #4CAF50;
@@ -240,6 +262,10 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #auditLogTable th, #auditLogTable td {
@@ -266,6 +292,10 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
 }
 
 #supportTicketsTable th, #supportTicketsTable td {
@@ -316,6 +346,8 @@ body {
 }
 
 .metric {
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 5px;
@@ -326,6 +358,18 @@ body {
 
 #reportGeneration {
     margin-top: 30px;
+}
+
+#generateReportButton{
+    background-color: #2980b9;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#generateReportButton:hover {
+    background-color: #090d0c;
 }
 
 #chatContainer {

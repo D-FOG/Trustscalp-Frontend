@@ -488,6 +488,109 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    // Sample data for withdrawal requests
+    const withdrawals = [
+        { userId: "U12345", amount: 150, date: "2024-10-30", status: "Pending" },
+        { userId: "U67890", amount: 250, date: "2024-10-29", status: "Approved" },
+        { userId: "U11121", amount: 300, date: "2024-10-28", status: "Rejected" },
+    ];
+
+    // Function to create table rows dynamically
+    function populateWithdrawalTable(data) {
+        const tableBody = document.getElementById("withdrawalTableBody");
+        tableBody.innerHTML = ""; // Clear any existing rows
+
+        data.forEach(withdrawal => {
+            const row = document.createElement("tr");
+
+            // User ID cell
+            const userIdCell = document.createElement("td");
+            userIdCell.textContent = withdrawal.userId;
+            row.appendChild(userIdCell);
+
+            // Amount cell
+            const amountCell = document.createElement("td");
+            amountCell.textContent = `$${withdrawal.amount.toFixed(2)}`;
+            row.appendChild(amountCell);
+
+            // Requested Date cell
+            const dateCell = document.createElement("td");
+            dateCell.textContent = withdrawal.date;
+            row.appendChild(dateCell);
+
+            // Status cell
+            const statusCell = document.createElement("td");
+            statusCell.textContent = withdrawal.status;
+            statusCell.classList.add("status-" + withdrawal.status.toLowerCase()); // Optional: add class based on status for custom styling
+            row.appendChild(statusCell);
+
+            // Action cell with buttons
+            const actionCell = document.createElement("td");
+
+            if (withdrawal.status === "Pending") {
+                // Approve button
+                const approveButton = document.createElement("button");
+                approveButton.textContent = "Approve";
+                approveButton.classList.add("btn", "btn-success", "btn-sm");
+                approveButton.onclick = () => updateWithdrawalStatus(withdrawal.userId, "Approved");
+                actionCell.appendChild(approveButton);
+
+                // Reject button
+                const rejectButton = document.createElement("button");
+                rejectButton.textContent = "Reject";
+                rejectButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+                rejectButton.onclick = () => updateWithdrawalStatus(withdrawal.userId, "Rejected");
+                actionCell.appendChild(rejectButton);
+            } else {
+                actionCell.textContent = "No actions available";
+            }
+
+            row.appendChild(actionCell);
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Function to handle status updates
+    function updateWithdrawalStatus(userId, newStatus) {
+        const withdrawal = withdrawals.find(w => w.userId === userId);
+        if (withdrawal) {
+            withdrawal.status = newStatus;
+            populateWithdrawalTable(withdrawals); // Refresh the table with updated data
+        }
+    }
+
+    // Populate the table on page load
+    populateWithdrawalTable(withdrawals);
+
+    //logout functionality
+    // const logoutButton = document.querySelector(".logout-btn");
+
+    // // Function to handle logout
+    // function handleLogout() {
+    //     // Clear any stored session or authentication tokens (example)
+    //     //localStorage.removeItem("authToken");
+    //     //sessionStorage.removeItem("authToken");
+
+    //     // Redirect to the login page
+    //     window.location.href = "/admin/login.html";
+    // }
+
+    // // Add click event listener to the logout button
+    // logoutButton.addEventListener("click", handleLogout);
+    // fetch('sidebar.html')
+    //     .then(response => response.text())
+    //     .then(data => {
+    //         document.getElementById('sidebar-container').innerHTML = data;
+
+    //         // Add logout functionality after the sidebar is loaded
+    //         const logoutButton = document.querySelector('.logout-btn');
+    //         if (logoutButton) {
+    //             logoutButton.addEventListener('click', function() {
+    //                 window.location.href = '/admin/login.html'; // Redirect to login page
+    //             });
+    //         }
+    //     });
     
 })
 
