@@ -20,6 +20,8 @@ body {
     padding: 20px;
     position: fixed;
     height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .admin-profile {
@@ -411,6 +413,61 @@ body {
     font-size: 24px;
     color: #333;
     cursor: pointer;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari, and Edge */
+}
+
+.pagination-controls{
+    margin-top: 3px;
+}
+
+/* Custom Button Styles */
+button {
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Comfortable padding */
+    font-weight: 500; /* Slightly bolder text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Styling for Pagination Buttons */
+button#prev-page, button#next-page {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border-radius: 16px;
+    border: none;
+}
+
+button#prev-page:hover, button#next-page:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Styling for the Update Button */
+button.update-btn {
+    background-color: #28a745; /* Green button */
+    color: white;
+    border: none;
+}
+
+button.update-btn:hover {
+    background-color: #218838; /* Darker green for hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Close Button in Overlay */
+button#close-overlay {
+    background-color: #ff4d4d; /* Red background */
+    color: white;
+    border: none;
+}
+
+button#close-overlay:hover {
+    background-color: #cc0000; /* Darker red for hover */
+    transform: scale(1.05); /* Slight zoom effect */
 }
 
 /* Responsive Design */

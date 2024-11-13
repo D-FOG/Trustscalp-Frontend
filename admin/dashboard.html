@@ -57,6 +57,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="pagination-controls">
+                    <button id="prev-page">Previous</button>
+                    <span id="current-page">Page 1</span>
+                    <button id="next-page">Next</button>
+                </div>
             </section>
         </div>
     </div>
@@ -79,6 +84,13 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('sidebar-container').innerHTML = data;
+                    const adminNameElement = document.getElementById('adminName');
+                    const adminImgElement = document.getElementById('adminImg');
+                    if (adminNameElement && adminImgElement) {
+                        loadAdminProfile();
+                    } else {
+                        console.error('Sidebar elements not found.');
+                    }
 
                     // Set up logout button event listener
                     const logoutBtn = document.querySelector('.logout-btn');
@@ -89,6 +101,38 @@
                         });
                     }
                 });
+
+                async function loadAdminProfile() {
+                    const token = localStorage.getItem('authToken');
+                    try {
+                        const response = await fetch('http://localhost:8000/api/admin/get-admin', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        console.log(response)
+            
+                        if (!response.ok) throw new Error('Failed to fetch admin profile');
+                        const data = await response.json();
+                        console.log(data)
+                        console.log(data.profileImage)
+            
+                    // Update sidebar with admin data
+                        const adminNameElement = document.getElementById('adminName');
+                        const adminImgElement = document.getElementById('adminImg');
+                        if (adminNameElement && adminImgElement) {
+                            adminNameElement.innerText = data.details.username;
+                            adminImgElement.src = data.details.profileImageUrl || 'https://via.placeholder.com/80';
+                        } else {
+                            console.error('Sidebar elements not found when updating profile.');
+                        }
+                    } catch (error) {
+                        console.error('Error loading admin profile:', error);
+                    }
+                }
+
             // Function to check for mobile view and display overlay
             function checkMobileView() {
                 if (window.innerWidth < 768) {
@@ -125,6 +169,116 @@
             checkMobileView();
             window.addEventListener('resize', checkMobileView);
         });
+    </script>
+    <script>
+        const usersPerPage = 10; // Number of users per page
+        let currPage = 1; // Default to page 1
+        let allUsers = []; // Array to hold all users
+
+        async function fetchUsers(){
+            const token = localStorage.getItem('authToken')
+            if(!token){
+                console.error('No authentication token found.');
+                return;
+            }
+            try {
+                const response = await fetch('http://localhost:8000/api/admin/users', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Attach token to header
+                    }
+                }); // Replace with your actual endpoint
+                const data = await response.json();
+        
+                if (response.ok && data.data) {
+                    //populateUsers(data.data);
+                    console.log(data)
+                    allUsers = data.data;
+                    paginateUsers();
+                } else {
+                    console.error('No users found.');
+                }
+            } catch(error){
+                console.error('Error fetching wallet data:', error);
+            }
+        }
+
+        function paginateUsers() {
+            if (allUsers.length === 0) {
+                console.log('No users to display');
+                return; // Exit early if no users are available
+            }
+            const startIndex = (currPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const usersToDisplay = allUsers.slice(startIndex, endIndex);
+            populateUsers(usersToDisplay);
+            updatePaginationControls();
+        }
+        // Populate the user table
+        function populateUsers(users){
+            const userTableBody = document.getElementById('user-table-body');
+            if (userTableBody) {
+                userTableBody.innerHTML = '';
+                users.forEach((user, index) => {
+                    const row = document.createElement('tr');
+                    const rowNumber = (currPage - 1) * usersPerPage + (index + 1);
+                    row.innerHTML = `
+                        <td>${rowNumber}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>${user.walletBalance ? user.walletBalance  : `null`}</td>
+                        <td><button class="update-btn">Update</button></td>
+                    `;
+                    userTableBody.appendChild(row);
+                });
+            }
+        }
+        
+        function updatePaginationControls() {
+            const totalPages = Math.ceil(allUsers.length / usersPerPage);
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            const currentPageElement = document.getElementById('current-page');
+
+            currentPageElement.textContent = `Page ${currPage}`;
+            prevBtn.disabled = currPage === 1;
+            // Only enable the next button if there's more than one page
+            nextBtn.disabled = currPage >= totalPages || allUsers.length <= usersPerPage;
+            // Hide next button if there are fewer than usersPerPage users (one page of users)
+            if (allUsers.length <= usersPerPage) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.style.display = 'inline'; // Ensure it's visible if there are more pages
+            }
+            console.log(allUsers.length <= usersPerPage, totalPages);
+        }
+
+        // Event listeners for pagination buttons
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (currPage > 1) {
+                currPage--;
+                paginateUsers();
+            }
+        });
+
+        document.getElementById('next-page').addEventListener('click', () => {
+            const totalPages = Math.ceil(allUsers.length / usersPerPage);
+            if (currPage < totalPages) {
+                currPage++;
+                paginateUsers();
+            }
+        });
+
+
+        // Update button click event
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('update-btn')) {
+                alert('Update functionality goes here.');
+            }
+        });
+
+        fetchUsers();
     </script>
 </body>
 </html>

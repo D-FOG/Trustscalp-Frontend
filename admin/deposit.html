@@ -72,20 +72,58 @@
         <script>
             document.addEventListener("DOMContentLoaded", function(){
                  //for the logout
-                fetch('sidebar.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('sidebar-container').innerHTML = data;
+                 fetch('sidebar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('sidebar-container').innerHTML = data;
+                    const adminNameElement = document.getElementById('adminName');
+                    const adminImgElement = document.getElementById('adminImg');
+                    if (adminNameElement && adminImgElement) {
+                        loadAdminProfile();
+                    } else {
+                        console.error('Sidebar elements not found.');
+                    }
 
-                        // Set up logout button event listener
-                        const logoutBtn = document.querySelector('.logout-btn');
-                        if (logoutBtn) {
-                            logoutBtn.addEventListener('click', function () {
-                                // Perform logout actions
-                                window.location.href = '/admin/login.html';
-                            });
+                    // Set up logout button event listener
+                    const logoutBtn = document.querySelector('.logout-btn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function () {
+                            // Perform logout actions
+                            window.location.href = '/admin/login.html';
+                        });
+                    }
+                });
+
+                async function loadAdminProfile() {
+                    const token = localStorage.getItem('authToken');
+                    try {
+                        const response = await fetch('http://localhost:8000/api/admin/get-admin', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        console.log(response)
+            
+                        if (!response.ok) throw new Error('Failed to fetch admin profile');
+                        const data = await response.json();
+                        console.log(data)
+                        console.log(data.profileImage)
+            
+                    // Update sidebar with admin data
+                        const adminNameElement = document.getElementById('adminName');
+                        const adminImgElement = document.getElementById('adminImg');
+                        if (adminNameElement && adminImgElement) {
+                            adminNameElement.innerText = data.details.username;
+                            adminImgElement.src = data.details.profileImageUrl || 'https://via.placeholder.com/80';
+                        } else {
+                            console.error('Sidebar elements not found when updating profile.');
                         }
-                    });
+                    } catch (error) {
+                        console.error('Error loading admin profile:', error);
+                    }
+                }
                 // Function to check for mobile view and display overlay
                 function checkMobileView() {
                     if (window.innerWidth < 768) {

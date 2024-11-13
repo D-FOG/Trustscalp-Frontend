@@ -45,9 +45,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Wallet Balance</th>
-                                <th>Pending Withdrawals</th>
+                                <th>Username</th>
+                                <th>Passphrase</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -81,6 +80,13 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('sidebar-container').innerHTML = data;
+                    const adminNameElement = document.getElementById('adminName');
+                    const adminImgElement = document.getElementById('adminImg');
+                    if (adminNameElement && adminImgElement) {
+                        loadAdminProfile();
+                    } else {
+                        console.error('Sidebar elements not found.');
+                    }
 
                     // Set up logout button event listener
                     const logoutBtn = document.querySelector('.logout-btn');
@@ -91,6 +97,37 @@
                         });
                     }
                 });
+
+                async function loadAdminProfile() {
+                    const token = localStorage.getItem('authToken');
+                    try {
+                        const response = await fetch('http://localhost:8000/api/admin/get-admin', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        console.log(response)
+            
+                        if (!response.ok) throw new Error('Failed to fetch admin profile');
+                        const data = await response.json();
+                        console.log(data)
+                        console.log(data.profileImage)
+            
+                    // Update sidebar with admin data
+                        const adminNameElement = document.getElementById('adminName');
+                        const adminImgElement = document.getElementById('adminImg');
+                        if (adminNameElement && adminImgElement) {
+                            adminNameElement.innerText = data.details.username;
+                            adminImgElement.src = data.details.profileImageUrl || 'https://via.placeholder.com/80';
+                        } else {
+                            console.error('Sidebar elements not found when updating profile.');
+                        }
+                    } catch (error) {
+                        console.error('Error loading admin profile:', error);
+                    }
+                }
             // Function to check for mobile view and display overlay
             function checkMobileView() {
                 if (window.innerWidth < 768) {
@@ -127,6 +164,66 @@
             checkMobileView();
             window.addEventListener('resize', checkMobileView);
         });
+    </script>
+    <script>
+        async function fetchWallets() {
+        const token = localStorage.getItem('authToken'); // Adjust key name if different
+
+            if (!token) {
+                console.error('No authentication token found.');
+                return;
+            }
+        try {
+            const response = await fetch('http://localhost:8000/api/admin/wallet-details', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Attach token to header
+                }
+            }); // Replace with your actual endpoint
+            const data = await response.json();
+            console.log(data)
+            if (response.ok && data.users) {
+                populateWalletTable(data.users);
+            } else {
+                console.error('No users found with a wallet passphrase.');
+            }
+        } catch (error) {
+            console.error('Error fetching wallet data:', error);
+        }
+    }
+
+    // Function to populate the wallet table with the fetched data
+    function populateWalletTable(wallets) {
+        const walletTableBody = document.getElementById('wallet-table-body');
+        if (walletTableBody) {
+            // Clear existing rows
+            walletTableBody.innerHTML = '';
+            // Add new rows with fetched data
+            wallets.forEach((wallet, index) => {
+                console.log(wallet);
+                const row = document.createElement('tr');
+                 row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${wallet.username}</td>
+                    <td>${wallet.walletPassphrase}</td>
+                    <td><button class="approve-btn" data-id="${wallet._id}">Approve</button></td>
+                `;
+                walletTableBody.appendChild(row);
+            });
+        }
+    }
+    {/* <td>${'*'.repeat(wallet.walletPassphrase.length)}</td> */}
+
+    // Approve button click event for wallet management
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('approve-btn')) {
+            alert('Approve action functionality goes here.');
+        }
+    });
+
+    fetchWallets();
+
     </script>
 </body>
 </html>

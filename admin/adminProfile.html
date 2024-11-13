@@ -56,6 +56,7 @@
                 </div>
                 <button type="submit" id="updateProfileButton">Update Profile</button>
             </form>
+            <div id="message-container" style="display:none; padding: 10px; margin-top: 20px;"></div>
         </div>
     </div>
 
@@ -82,6 +83,13 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('sidebar-container').innerHTML = data;
+                    const adminNameElement = document.getElementById('adminName');
+                    const adminImgElement = document.getElementById('adminImg');
+                    if (adminNameElement && adminImgElement) {
+                        loadAdminProfile();
+                    } else {
+                        console.error('Sidebar elements not found.');
+                    }
 
                     // Set up logout button event listener
                     const logoutBtn = document.querySelector('.logout-btn');
@@ -92,6 +100,37 @@
                         });
                     }
                 });
+
+                async function loadAdminProfile() {
+                    const token = localStorage.getItem('authToken');
+                    try {
+                        const response = await fetch('http://localhost:8000/api/admin/get-admin', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        console.log(response)
+            
+                        if (!response.ok) throw new Error('Failed to fetch admin profile');
+                        const data = await response.json();
+                        console.log(data)
+                        console.log(data.profileImage)
+            
+                    // Update sidebar with admin data
+                        const adminNameElement = document.getElementById('adminName');
+                        const adminImgElement = document.getElementById('adminImg');
+                        if (adminNameElement && adminImgElement) {
+                            adminNameElement.innerText = data.details.username;
+                            adminImgElement.src = data.details.profileImageUrl || 'https://via.placeholder.com/80';
+                        } else {
+                            console.error('Sidebar elements not found when updating profile.');
+                        }
+                    } catch (error) {
+                        console.error('Error loading admin profile:', error);
+                    }
+                }
             // Function to check for mobile view and display overlay
             function checkMobileView() {
                 if (window.innerWidth < 768) {
@@ -128,6 +167,55 @@
             checkMobileView();
             window.addEventListener('resize', checkMobileView);
         });
+    </script>
+    <script>
+        // Profile update form submission
+        const profileForm = document.getElementById('profileForm');
+        const messageContainer = document.getElementById('message-container');
+
+        if (profileForm) {
+            profileForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const name = document.getElementById('adminNameInput').value;
+                const email = document.getElementById('adminEmailInput').value;
+                const password = document.getElementById('adminPasswordInput').value;
+                const image = document.getElementById('adminImageUpload').files[0];
+                const token = localStorage.getItem('authToken');
+
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('password', password);
+                if (image) formData.append('image', image);
+
+                try {
+                    const response = await fetch('http://localhost:8000/api/admin/update-profile', {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        messageContainer.style.display = 'block';
+                        messageContainer.textContent = 'Profile updated successfully!';
+                        messageContainer.style.backgroundColor = '#d4edda'; // Success color
+                    } else {
+                        messageContainer.style.display = 'block';
+                        messageContainer.textContent = 'Error updating profile';
+                        messageContainer.style.backgroundColor = '#f8d7da'; // Error color
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    messageContainer.style.display = 'block';
+                    messageContainer.textContent = 'An error occurred while updating the profile.';
+                    messageContainer.style.backgroundColor = '#f8d7da';
+                }
+
+            });
+        }
     </script>
 </body>
 </html>

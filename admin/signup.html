@@ -70,7 +70,7 @@
 <body>
     <div class="container">
         <h1>Sign Up</h1>
-        <form action="/admin/login.html" method="GET"> <!-- Updated action -->
+        <form> <!-- Updated action -->
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -85,29 +85,48 @@
             </div>
             <button type="submit">Sign Up</button>
         </form>
+        <div class="error-message" style="color: red; display: none;"></div>
         <div class="footer">
             <p>Already have an account? <a href="/admin/login.html">Login</a></p>
         </div>
         <!-- Uncomment the fetch when ready to implement -->
-        <!--
+        
         <script>
             // Example of a fetch request to sign up
-            document.querySelector('form').addEventListener('submit', function(e) {
+            document.querySelector('form').addEventListener('submit', async function(e) {
                 e.preventDefault();
+                const errorMessageDiv = document.querySelector('.error-message');
+                errorMessageDiv.style.display = 'none';
+                errorMessageDiv.textContent = '';
                 const formData = new FormData(this);
-                fetch('/api/signup', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    // Redirect to the login page or handle success
-                })
-                .catch(error => console.error('Error:', error));
+                const formObject = Object.fromEntries(formData.entries());
+                try {
+                    const response = await fetch('http://localhost:8000/api/admin/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formObject)
+                    });
+                    if (!response.ok) {  // Check if response is not successful
+                        const errorData = await response.json();
+                        errorMessageDiv.textContent = errorData.message || 'An error occurred';
+                        errorMessageDiv.style.display = 'block';
+                    } else {
+                        const data = await response.json();
+                        console.log(data);
+                        // Redirect to the login page or handle success
+                        window.location.href = '/admin/login.html';
+                    }
+                }catch(error) {
+                    console.error('Error:', error);
+                    // Show error message to the user
+                    errorMessageDiv.textContent = 'Network error. Please try again.';
+                    errorMessageDiv.style.display = 'block';
+                };     
             });
         </script>
-        -->
+       
     </div>
 </body>
 </html>

