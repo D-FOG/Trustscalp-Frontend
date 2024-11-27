@@ -1,38 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() { 
-    // Function to fetch wallet data from the backend
-
-    // Sample deposits data and function to load deposits
-    const deposits = [
-        { user: 'User1', amount: '1000', date: '2024-10-01', status: 'pending' },
-        { user: 'User2', amount: '500', date: '2024-10-15', status: 'approved' },
-    ];
-
-    function loadDeposits() {
-        const depositTableBody = document.getElementById('depositTableBody');
-        if (depositTableBody) {
-            deposits.forEach(deposit => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${deposit.user}</td>
-                    <td>${deposit.amount}</td>
-                    <td>${deposit.date}</td>
-                    <td>
-                        <span class="status-${deposit.status}">${deposit.status.charAt(0).toUpperCase() + deposit.status.slice(1)}</span>
-                    </td>
-                    <td><button class="action-button" onclick="approveDeposit('${deposit.user}')">Approve</button></td>
-                `;
-                depositTableBody.appendChild(row);
-            });
-        }
-    }
-
-    loadDeposits();
-
-    // Function to approve deposit
-    function approveDeposit(user) {
-        alert(`Deposit for ${user} approved!`);
-    }
-
     // Profile Management - Update Profile
     
 

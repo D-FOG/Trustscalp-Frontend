@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - User Management</title>
+    <title>Admin Management</title>
     <link rel="stylesheet" href="styleroot/styles.css">
     <link rel="stylesheet" href="styleroot/sidebar.css">
     <!-- CDN for Icons (FontAwesome) -->
@@ -11,7 +11,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <!-- <style>
         /* Overlay Styles */
         .overlay {
@@ -32,7 +31,7 @@
     </style> -->
 </head>
 <body>
-    <div class="admin-container">
+    <div class="dashboard-container">
         <!-- Sidebar -->
         <div>
             <button id="hamburger-icon" class="hamburger" aria-label="Toggle Sidebar">
@@ -40,45 +39,33 @@
             </button>
             <div id="sidebar-container"></div>
          </div>
-        <!-- Main Content -->
         <div class="main-content">
             <header class="main-header">
-                <h1>User Management</h1>
+                <h2>Admin Management</h2>
             </header>
-
-            <section class="user-management">
-                <div class="table-container">
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>Wallet Balance</th>
-                                <th>Total deposits</th>
-                                <th>Total Withdrawals</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-table-body">
-                            <!-- Dynamic user data will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pagination-controls">
-                    <button id="prev-page">Previous</button>
-                    <span id="current-page">Page 1</span>
-                    <button id="next-page">Next</button>
-                </div>
-            </section>
+            
+            <table class="table table-bordered" id="adminTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    <!-- Admin rows will be dynamically inserted here -->
+                </tbody>
+            </table>
         </div>
-    </div>
+        </div>
 
      <!-- Bootstrap JS and dependencies (jQuery) -->
      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
+     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const sidebarContainer = document.getElementById("sidebar-container");
 
@@ -177,14 +164,31 @@
             }
         }
     </script>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            
-        });
-    </script> -->
-
+    
     <!-- <script>
         document.addEventListener("DOMContentLoaded", function(){
+            // Set up logout button event listener
+            const logoutBtn = document.querySelector('.logout-btn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function () {
+                            // Perform logout actions
+                            window.location.href = '/admin/login.html';
+                        });
+                    }
+        });
+    </script> -->
+     <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('sidebar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('sidebar-container').innerHTML = data;
+                });
+        });
+    </script> -->
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            //for the logout
             fetch('sidebar.html')
                 .then(response => response.text())
                 .then(data => {
@@ -237,7 +241,6 @@
                         console.error('Error loading admin profile:', error);
                     }
                 }
-
             // Function to check for mobile view and display overlay
             function checkMobileView() {
                 if (window.innerWidth < 768) {
@@ -275,194 +278,170 @@
             window.addEventListener('resize', checkMobileView);
         });
     </script> -->
+
     <script>
-        const usersPerPage = 10; // Number of users per page
-        let currPage = 1; // Default to page 1
-        let allUsers = []; // Array to hold all users
+        document.addEventListener("DOMContentLoaded", function () {
+            let admins = []; // Stores admin data fetched from the server
+            const rowsPerPage = 5;
+            let currentPage = 1;
 
-        async function fetchUsers(){
-            const token = localStorage.getItem('authToken')
-            if(!token){
-                console.error('No authentication token found.');
-                return;
-            }
-            try {
-                const response = await fetch('https://trustscalp-backend.onrender.com/api/admin/users', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` // Attach token to header
-                    }
-                }); // Replace with your actual endpoint
-                const data = await response.json();
-        
-                if (response.ok && data.data) {
-                    //populateUsers(data.data);
-                    console.log(data)
-                    allUsers = data.data;
-                    await fetchDepositsAndWithdrawals(allUsers);
-                    paginateUsers();
-                } else {
-                    console.error('No users found.');
-                }
-            } catch(error){
-                console.error('Error fetching wallet data:', error);
-            }
-        }
-
-        // Fetch deposits and withdrawals for each user using email in the request body
-        async function fetchDepositsAndWithdrawals(users) {
-            const token = localStorage.getItem('authToken');
-            const promises = users.map(async (user) => {
+            // Fetch admins from the backend (dummy data for simulation)
+            async function fetchAdmins() {
                 try {
-                    // Fetch deposits
-                    const depositsResponse = await fetch('https://trustscalp-backend.onrender.com/api/admin/deposit-balance', {
-                        method: 'POST', // Change to POST for sending email in the body
+                    // Simulating server response with dummy data
+                    // admins = [
+                    //     { id: 1, email: "john.doe@example.com", status: "pending" },
+                    //     { id: 2, email: "jane.smith@example.com", status: "pending" },
+                    //     { id: 3, email: "alice.wonderland@example.com", status: "pending" },
+                    //     { id: 4, email: "bob.marley@example.com", status: "pending" },
+                    //     { id: 5, email: "charlie.brown@example.com", status: "pending" },
+                    //     { id: 6, email: "diana.prince@example.com", status: "pending" },
+                    //     { id: 7, email: "bruce.wayne@example.com", status: "pending" },
+                    //     { id: 8, email: "clark.kent@example.com", status: "pending" },
+                    //     { id: 9, email: "lois.lane@example.com", status: "pending" },
+                    //     { id: 10, email: "peter.parker@example.com", status: "pending" }
+                    // ];
+                    const token = localStorage.getItem('authToken');
+                    const response = await fetch(`https://trustscalp-backend.onrender.com/api/admin/unapproved-admins`, {
+                        method: 'GET',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
-                        },
-                        body: JSON.stringify({ email: user.email }), // Pass email in the request body
+                            'Authorization': `Bearer ${token}`
+                        }
                     });
-                    const depositsData = await depositsResponse.json();
-                    console.log(depositsData.totalDeposit)
-                    user.totalDeposits = depositsResponse.ok ? depositsData.totalDeposit : 0;
 
-                    // Fetch withdrawals
-                    const withdrawalsResponse = await fetch('https://trustscalp-backend.onrender.com/api/admin/withdrawal-balance', {
-                        method: 'POST', // Change to POST for sending email in the body
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
-                        },
-                        body: JSON.stringify({ email: user.email }), // Pass email in the request body
-                    });
-                    const withdrawalsData = await withdrawalsResponse.json();
-                    console.log(withdrawalsData.totalWithdrawals)
-                    user.totalWithdrawals = withdrawalsResponse.ok ? withdrawalsData.totalWithdrawals : 0;
+                    if (!response.ok) throw new Error('Failed to fetch admins.');
+
+                    const data = await response.json();
+                    console.log(data.data)
+                    admins = data.data; // Use the fetched data
+                    console.log(`admin: ${admins}`)
+
+                    renderTable();
+                    renderPagination();
                 } catch (error) {
-                    console.error(`Error fetching deposits/withdrawals for user ${user.email}:`, error);
-                    user.totalDeposits = 0;
-                    user.totalWithdrawals = 0;
+                    console.error("Error fetching admin data:", error);
                 }
-            });
-
-            await Promise.all(promises);
-        }
-
-
-        function paginateUsers() {
-            if (allUsers.length === 0) {
-                console.log('No users to display');
-                return; // Exit early if no users are available
             }
-            const startIndex = (currPage - 1) * usersPerPage;
-            const endIndex = startIndex + usersPerPage;
-            const usersToDisplay = allUsers.slice(startIndex, endIndex);
-            populateUsers(usersToDisplay);
-            updatePaginationControls();
-        }
-        // Populate the user table
-        function populateUsers(users){
-            const userTableBody = document.getElementById('user-table-body');
-            if (userTableBody) {
-                userTableBody.innerHTML = '';
-                users.forEach((user, index) => {
-                    const row = document.createElement('tr');
-                    const rowNumber = (currPage - 1) * usersPerPage + (index + 1);
+
+            // Render table rows for admins
+            function renderTable() {
+                const tableBody = document.getElementById("adminTableBody");
+                tableBody.innerHTML = "";
+
+                const startIndex = (currentPage - 1) * rowsPerPage;
+                const endIndex = Math.min(startIndex + rowsPerPage, admins.length);
+
+                for (let i = startIndex; i < endIndex; i++) {
+                    const admin = admins[i];
+                    const displayId = i + 1;
+                    console.log(admin)
+                    const row = document.createElement("tr");
                     row.innerHTML = `
-                        <td>${rowNumber}</td>
-                        <td>${user.email}</td>
-                        <td>$${user.walletBalance ? user.walletBalance  : `0`}</td>
-                        <td>$${user.totalDeposits ? user.totalDeposits :`0`}</td>
-                        <td>$${user.totalWithdrawals ? user.totalWithdrawals :`0`}</td>
+                        <td>${displayId}</td>
+                        <td>${admin.email}</td>
+                        <td id="status-${admin.id}">${admin.status}</td>
                         <td>
-                            <button class="delete-btn" data-user-id="${user.id}">Delete</button>
+                            <button class="btn btn-success btn-sm" onclick="approveAdmin(${i})">Approve</button>
+                            <button class="btn btn-danger btn-sm" onclick="rejectAdmin(${i})">Reject</button>
                         </td>
                     `;
-                    userTableBody.appendChild(row);
-                });
-            }
-        }
-        
-        function updatePaginationControls() {
-            const totalPages = Math.ceil(allUsers.length / usersPerPage);
-            const prevBtn = document.getElementById('prev-page');
-            const nextBtn = document.getElementById('next-page');
-            const currentPageElement = document.getElementById('current-page');
-
-            currentPageElement.textContent = `Page ${currPage}`;
-            prevBtn.disabled = currPage === 1;
-            // Only enable the next button if there's more than one page
-            nextBtn.disabled = currPage >= totalPages || allUsers.length <= usersPerPage;
-            // Hide next button if there are fewer than usersPerPage users (one page of users)
-            if (allUsers.length <= usersPerPage) {
-                nextBtn.style.display = 'none';
-            } else {
-                nextBtn.style.display = 'inline'; // Ensure it's visible if there are more pages
-            }
-            console.log(allUsers.length <= usersPerPage, totalPages);
-        }
-
-        // Event listeners for pagination buttons
-        document.getElementById('prev-page').addEventListener('click', () => {
-            if (currPage > 1) {
-                currPage--;
-                paginateUsers();
-            }
-        });
-
-        document.getElementById('next-page').addEventListener('click', () => {
-            const totalPages = Math.ceil(allUsers.length / usersPerPage);
-            if (currPage < totalPages) {
-                currPage++;
-                paginateUsers();
-            }
-        });
-
-
-        // Update button click event
-        document.addEventListener('click', function(e) {
-            if (e.target && e.target.classList.contains('update-btn')) {
-                alert('Update functionality goes here.');
-            }
-        });
-
-        fetchUsers();
-    </script>
-    <script>
-        document.addEventListener('click', async function (e) {
-            if (e.target && e.target.classList.contains('delete-btn')) {
-                const email = e.target.closest('tr').querySelector('td:nth-child(2)').innerText;
-                console.log(email)
-                if (confirm('Are you sure you want to delete this user?')) {
-                    try {
-                        const token = localStorage.getItem('authToken');
-                        const response = await fetch(`https://trustscalp-backend.onrender.com/api/admin/delete`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Authorization': `Bearer ${token}`,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ email })
-                        });
-
-                        if (response.ok) {
-                            alert('User deleted successfully.');
-                            allUsers = allUsers.filter(user => user.email !== email); // Remove user from local data
-                            paginateUsers(); // Refresh the table
-                        } else {
-                            const result = await response.json();
-                            alert('Error deleting user: ' + result.message);
-                        }
-                    } catch (error) {
-                        console.error('Error deleting user:', error);
-                        alert('An error occurred. Please try again.');
-                    }
+                    tableBody.appendChild(row);
                 }
             }
-        });
 
+            // Render pagination
+            function renderPagination() {
+                const pagination = document.getElementById("pagination");
+                pagination.innerHTML = "";
+
+                const totalPages = Math.ceil(admins.length / rowsPerPage);
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageItem = document.createElement("li");
+                    pageItem.className = `page-item ${i === currentPage ? "active" : ""}`;
+                    pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                    pageItem.addEventListener("click", function () {
+                        if (i !== currentPage) {
+                            currentPage = i;
+                            renderTable();
+                        }
+                    });
+                    pagination.appendChild(pageItem);
+                }
+            }
+
+            // Approve admin and update status
+            window.approveAdmin = async function (index) {
+                const admin = admins[index];
+                console.log(admin.email)
+                const token = localStorage.getItem('authToken');
+
+                try {
+                    const response = await fetch(`https://trustscalp-backend.onrender.com/api/admin/approve`, {
+                        method: "PUT",
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            status: "approved", 
+                            email: admin.email // Add email in the body
+                        })
+                    });
+
+                    if (response.status === 403) {
+                        throw new Error('Only the root admin can approve other admins.');
+                    }
+
+                    if (!response.ok) throw new Error('Failed to approve admin.');
+
+                    // Update status locally after a successful server response
+                    admin.status = "approved";
+                    renderTable();
+                    alert(`${admin.email} has been approved.`);
+                } catch (error) {
+                    console.error("Error approving admin:", error);
+                    alert( error.message || "Failed to approve admin. Please try again.");
+                }
+            };
+
+            // Reject admin and remove row
+            window.rejectAdmin = async function (index) {
+                const admin = admins[index];
+                const token = localStorage.getItem('authToken');
+
+                if (confirm(`Are you sure you want to reject ${admin.email}?`)) {
+                    try {
+                        const response = await fetch(`https://trustscalp-backend.onrender.com/api/admin/reject`, {
+                            method: "DELETE",
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ 
+                                email: admin.email // Add email in the body for rejection
+                            })
+                        });
+
+                        if (response.status === 403) {
+                            throw new Error('Only the root admin can reject other admins.');
+                        }
+
+                        if (!response.ok) throw new Error('Failed to reject admin.');
+
+                        // Remove the admin locally after a successful server response
+                        admins.splice(index, 1);
+                        renderTable();
+                        alert(`${admin.email} has been rejected.`);
+                    } catch (error) {
+                        console.error("Error rejecting admin:", error);
+                        alert( error.message || "Failed to reject admin. Please try again.");
+                    }
+                }
+            };
+
+
+            fetchAdmins();
+        });
     </script>
 </body>
 </html>

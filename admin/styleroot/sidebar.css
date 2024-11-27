@@ -1,0 +1,195 @@
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    transition: width 0.3s ease, transform 0.3s ease;
+    z-index: 1200;
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin-top: 40px;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-menu a:hover {
+    background-color: #34495e;
+    border-radius: 5px;
+}
+
+/* Collapsed Sidebar */
+.sidebar.collapsed {
+    width: 70px;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .admin-profile {
+    display: none; /* Hide profile info */
+}
+
+.sidebar.collapsed .sidebar-menu a {
+    justify-content: center;
+}
+
+.sidebar.collapsed .sidebar-menu a span {
+    display: none; /* Hide text */
+}
+
+/* Hamburger Button */
+.hamburger {
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 8px;
+    font-size: 24px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    z-index: 1300; /* Always on top */
+}
+.hamburger:focus {
+    cursor: pointer;
+    outline: none;
+    /* box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); */
+}
+
+/* Admin Profile Section */
+.admin-profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.admin-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.logout-btn {
+    margin-top: 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: #e74c3c;
+}
+
+/* Sidebar Overlay (Mobile) */
+.sidebar-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1100; /* Above content but below sidebar */
+}
+.sidebar::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari, and Edge */
+}
+
+/* Collapsed Sidebar - Desktop */
+@media screen and (min-width: 769px) {
+    .sidebar.collapsed {
+        width: 70px; /* Collapsed width */
+        overflow: hidden;
+    }
+
+    .sidebar.collapsed .admin-profile {
+        display: none; /* Hide profile info */
+    }
+
+    .sidebar.collapsed .sidebar-menu a {
+        justify-content: center; /* Center icons */
+    }
+
+    .sidebar.collapsed .sidebar-menu a span {
+        display: none; /* Hide text */
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        left: -250px; /* Fully hidden */
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        left: 0;
+        transform: translateX(0); /* Fully visible */
+        z-index: 1200;
+    }
+    .sidebar.collapsed {
+        width: 250px; /* Use full width for mobile */
+    }
+
+    .sidebar.collapsed .admin-profile,
+    .sidebar.collapsed .sidebar-menu a span {
+        display: block; /* Show text and profile info */
+    }
+
+    .sidebar.collapsed .sidebar-menu a {
+        justify-content: flex-start; /* Align text and icons normally */
+    }
+
+    .sidebar-overlay.visible {
+        display: block; /* Show overlay */
+    }
+    .hamburger {
+        cursor: pointer;
+        position: fixed;
+        top: 1px;
+        left: 5px;
+        padding-top: 2px;
+        padding-bottom: 3px;
+        font-size: 24px;
+        color: grey;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        z-index: 1300; /* Always on top */
+    }
+    .hamburger:focus {
+        cursor: pointer;
+        outline: none;
+        /* box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); */
+    }
+}
+

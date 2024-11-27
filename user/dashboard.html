@@ -173,13 +173,13 @@ window.smartsupp||(function(d) {
               <div class="col-lg-6 mt-2">
                   <div class="stat-box">
                       <div class="title">Trade Profit</div>
-                      <div class="value text-success">$0</div>
+                      <div class="value text-success" >$0</div>
                   </div>
               </div>
               <div class="col-lg-6 mt-2">
                   <div class="stat-box">
                       <div class="title">Deposits</div>
-                      <div class="value">$10</div>
+                      <div class="value deposits" >$10</div>
                   </div>
               </div>
           </div>
@@ -187,7 +187,7 @@ window.smartsupp||(function(d) {
               <div class="col-lg-6 mt-2">
                   <div class="stat-box">
                       <div class="title">Total Withdraw</div>
-                      <div class="value text-danger">$0</div>
+                      <div class="value withdrawals text-danger ">$0</div>
                   </div>
               </div>
               <div class="col-lg-6 mt-2">
@@ -764,6 +764,88 @@ window.smartsupp||(function(d) {
         window.location.href = '/login.html';
     });
 
+</script>
+<script>
+    async function fetchTotalBalance() {
+    try {
+        // Replace '/api/balance' with your actual API endpoint
+        const response = await fetch('https://trustscalp-backend.onrender.com/api/user/total-balance', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Add the token if needed
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch balance');
+        }
+
+        const data = await response.json();
+        const balanceElement = document.querySelector('.balance .total');
+
+        // Update the balance on the page
+        balanceElement.textContent = `$${data.totalBalance.toFixed(2)}`;
+    } catch (error) {
+        console.error('Error fetching total balance:', error);
+    }
+}
+
+// Fetch the balance when the page loads
+document.addEventListener('DOMContentLoaded', fetchTotalBalance);
+
+</script>
+
+<script>
+    async function fetchTotalDeposits() {
+    try {
+        const response = await fetch('https://trustscalp-backend.onrender.com/api/user/total-deposit', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Add token if needed
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch deposits');
+        }
+
+        const data = await response.json();
+        const depositsElement = document.querySelector('.section .deposits');
+        depositsElement.textContent = `$${data.totalDeposit.toFixed(2)}`;
+    } catch (error) {
+        console.error('Error fetching total deposits:', error);
+    }
+}
+
+async function fetchTotalWithdrawals() {
+    try {
+        const response = await fetch('https://trustscalp-backend.onrender.com/api/user/total-withdrawals', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Add token if needed
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch withdrawals');
+        }
+
+        const data = await response.json();
+        const withdrawalsElement = document.querySelector('.section .withdrawals');
+        withdrawalsElement.textContent = `$${data.totalWithdrawals.toFixed(2)}`;
+    } catch (error) {
+        console.error('Error fetching total withdrawals:', error);
+    }
+}
+
+// Fetch the data when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchTotalDeposits();
+    fetchTotalWithdrawals();
+});
 </script>
 
 <script>

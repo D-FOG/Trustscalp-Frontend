@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="/assets/templates/bit_gold/css/main.css">
     <link rel="stylesheet" href="/assets/templates/bit_gold/css/custom.css">
     <link rel="stylesheet" href="/assets/templates/bit_gold/invetoro/assets/css/usercustom.css">
+    <link rel="stylesheet" href="/assets/styling/style.css">
     <!-- Smartsupp Live Chat script -->
 <script type="text/javascript">
 var _smartsupp = _smartsupp || {};
@@ -117,218 +118,374 @@ window.smartsupp||(function(d) {
                     </div>
                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/60f6772d4cf9e1626765101.png" class="card-img-top w-100" alt="Bitcoin">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
-
-
-                                        <li class="list-group-item">
-                                            Bitcoin</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="1" data-resource="{&quot;id&quot;:1,&quot;name&quot;:&quot;Bitcoin&quot;,&quot;currency&quot;:&quot;BTC&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1003&quot;,&quot;gateway_alias&quot;:&quot;bitcoin&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;0.10000000&quot;,&quot;image&quot;:&quot;60f6772d4cf9e1626765101.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2021-07-19T04:03:14.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:20:16.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:31,&quot;code&quot;:&quot;1003&quot;,&quot;alias&quot;:&quot;bitcoin&quot;,&quot;image&quot;:&quot;60f6772d4cf9e1626765101.png&quot;,&quot;name&quot;:&quot;Bitcoin&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;bc1qdf0776hv5lwx5mk98khjj7ay7r8u7x0cud4cfh&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2021-07-19T04:03:14.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:20:16.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img src="/assets/images/gateway/60f6772d4cf9e1626765101.png" 
+                                     class="card-img-top w-100" alt="Bitcoin Payment Method">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">Bitcoin</li>
+                                    <li class="list-group-item">
+                                        <button type="button" 
+                                                data-id="1" 
+                                                data-resource='{"id":1,"name":"Bitcoin","currency":"BTC","method_code":"1003"}' 
+                                                class="btn deposits cmn-btn w-100 text-white" 
+                                                data-toggle="modal" 
+                                                data-target="#exampleModal" 
+                                                aria-label="Deposit using Bitcoin">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/60f67752c8f801626765138.png" class="card-img-top w-100" alt="Ethereum">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
+            </div>
 
-
-                                        <li class="list-group-item">
-                                            Ethereum</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="2" data-resource="{&quot;id&quot;:2,&quot;name&quot;:&quot;Ethereum&quot;,&quot;currency&quot;:&quot;ETH&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1004&quot;,&quot;gateway_alias&quot;:&quot;ethereum&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;0.10000000&quot;,&quot;image&quot;:&quot;60f67752c8f801626765138.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2021-07-19T17:07:54.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:22:26.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:32,&quot;code&quot;:&quot;1004&quot;,&quot;alias&quot;:&quot;ethereum&quot;,&quot;image&quot;:&quot;60f67752c8f801626765138.png&quot;,&quot;name&quot;:&quot;Ethereum&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;0x13b61B0396982b0fCbA771d787249E273C56488d&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2021-07-19T17:07:54.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:22:26.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+            <!-- Repeat for Other Payment Methods -->
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img src="/assets/images/gateway/60f67752c8f801626765138.png" 
+                                     class="card-img-top w-100" alt="Ethereum Payment Method">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">Ethereum</li>
+                                    <li class="list-group-item">
+                                        <button type="button" 
+                                                data-id="2" 
+                                                data-resource='{"id":2,"name":"Ethereum","currency":"ETH","method_code":"1004"}' 
+                                                class="btn deposits cmn-btn w-100 text-white" 
+                                                data-toggle="modal" 
+                                                data-target="#exampleModal" 
+                                                aria-label="Deposit using Ethereum">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/60f677437e68a1626765123.png" class="card-img-top w-100" alt="Dogecoin">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
-
-
-                                        <li class="list-group-item">
-                                            Dogecoin</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="3" data-resource="{&quot;id&quot;:3,&quot;name&quot;:&quot;Dogecoin&quot;,&quot;currency&quot;:&quot;DOGE&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1005&quot;,&quot;gateway_alias&quot;:&quot;dogecoin&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;0.10000000&quot;,&quot;image&quot;:&quot;60f677437e68a1626765123.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2021-07-19T17:09:39.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:21:41.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:33,&quot;code&quot;:&quot;1005&quot;,&quot;alias&quot;:&quot;dogecoin&quot;,&quot;image&quot;:&quot;60f677437e68a1626765123.png&quot;,&quot;name&quot;:&quot;Dogecoin&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;DEQrjQaDhu58NB3gSMY9ybmqtWCqgCYpTJ&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2021-07-19T17:09:39.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:21:41.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img 
+                                    src="/assets/images/gateway/60f677437e68a1626765123.png" 
+                                    class="card-img-top w-100" 
+                                    alt="Dogecoin">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">Dogecoin</li>
+                                    <li class="list-group-item">
+                                        <button 
+                                            type="button"
+                                            data-id="3"
+                                            data-resource='{ "id": 3, "name": "Dogecoin", "currency": "DOGE", "min_amount": "1.00000000", "max_amount": "1000000.00000000", "rate": "0.10000000", "image": "60f677437e68a1626765123.png" }'
+                                            class="btn deposits cmn-btn w-100 text-white"
+                                            data-toggle="modal"
+                                            data-target="#exampleModal">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/60f677646d1c41626765156.png" class="card-img-top w-100" alt="Ripple">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
-
-
-                                        <li class="list-group-item">
-                                            Ripple</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="4" data-resource="{&quot;id&quot;:4,&quot;name&quot;:&quot;Ripple&quot;,&quot;currency&quot;:&quot;XRP&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1006&quot;,&quot;gateway_alias&quot;:&quot;ripple&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;0.10000000&quot;,&quot;image&quot;:&quot;60f677646d1c41626765156.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2021-07-19T23:14:30.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:23:52.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:34,&quot;code&quot;:&quot;1006&quot;,&quot;alias&quot;:&quot;ripple&quot;,&quot;image&quot;:&quot;60f677646d1c41626765156.png&quot;,&quot;name&quot;:&quot;Ripple&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;rAx1LieVYzTdzRZj6N4xPDLCghh9h4gQ9&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2021-07-19T23:14:30.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:23:52.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>
+                
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img src="/assets/images/gateway/61c99e4e6a3cd1640603214.png" class="card-img-top w-100" alt="Solana">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">
+                                        Solana
+                                    </li>
+                                    <li class="list-group-item">
+                                        <button type="button"
+                                                data-id="6"
+                                                data-resource='{
+                                                    "id": 6,
+                                                    "name": "Solana",
+                                                    "currency": "SOL",
+                                                    "symbol": "",
+                                                    "method_code": "1008",
+                                                    "gateway_alias": "solana",
+                                                    "min_amount": "1.00000000",
+                                                    "max_amount": "1000000.00000000",
+                                                    "percent_charge": "0.00",
+                                                    "fixed_charge": "0.00000000",
+                                                    "rate": "0.10000000",
+                                                    "image": "61c99e4e6a3cd1640603214.png",
+                                                    "gateway_parameter": "[]",
+                                                    "created_at": "2021-12-07T05:32:40.000000Z",
+                                                    "updated_at": "2024-07-24T18:24:35.000000Z",
+                                                    "method": {
+                                                        "id": 36,
+                                                        "code": "1008",
+                                                        "alias": "solana",
+                                                        "image": "61c99e4e6a3cd1640603214.png",
+                                                        "name": "Solana",
+                                                        "status": true,
+                                                        "parameters": "[]",
+                                                        "supported_currencies": "[]",
+                                                        "crypto": 0,
+                                                        "extra": null,
+                                                        "description": "EaZWyEiyLpsTeVzR6KqH1Pri65ZdpTbBPoo1QRukSifT",
+                                                        "input_form": [],
+                                                        "created_at": "2021-12-07T05:32:40.000000Z",
+                                                        "updated_at": "2024-07-24T18:24:35.000000Z"
+                                                    }
+                                                }'
+                                                data-base_symbol=""
+                                                class="btn deposits cmn-btn w-100 text-white"
+                                                data-toggle="modal" data-target="#exampleModal">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/61c99e4e6a3cd1640603214.png" class="card-img-top w-100" alt="Solana">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
-
-
-                                        <li class="list-group-item">
-                                            Solana</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="6" data-resource="{&quot;id&quot;:6,&quot;name&quot;:&quot;Solana&quot;,&quot;currency&quot;:&quot;SOL&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1008&quot;,&quot;gateway_alias&quot;:&quot;solana&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;0.10000000&quot;,&quot;image&quot;:&quot;61c99e4e6a3cd1640603214.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2021-12-07T05:32:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:24:35.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:36,&quot;code&quot;:&quot;1008&quot;,&quot;alias&quot;:&quot;solana&quot;,&quot;image&quot;:&quot;61c99e4e6a3cd1640603214.png&quot;,&quot;name&quot;:&quot;Solana&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;EaZWyEiyLpsTeVzR6KqH1Pri65ZdpTbBPoo1QRukSifT&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2021-12-07T05:32:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:24:35.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>
+            
+                
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img src="/assets/images/gateway/65c16b41be9c61707174721.png" class="card-img-top w-100" alt="USDT">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">
+                                        USDT
+                                    </li>
+                                    <li class="list-group-item">
+                                        <button type="button"
+                                                data-id="19"
+                                                data-resource='{
+                                                    "id": 19,
+                                                    "name": "USDT",
+                                                    "currency": "USDT (TRX)",
+                                                    "symbol": "",
+                                                    "method_code": "1010",
+                                                    "gateway_alias": "usdt",
+                                                    "min_amount": "1.00000000",
+                                                    "max_amount": "1000000.00000000",
+                                                    "percent_charge": "0.00",
+                                                    "fixed_charge": "0.00000000",
+                                                    "rate": "1.00000000",
+                                                    "image": "65c16b41be9c61707174721.png",
+                                                    "gateway_parameter": "[]",
+                                                    "created_at": "2023-07-08T15:47:44.000000Z",
+                                                    "updated_at": "2024-07-24T18:25:43.000000Z",
+                                                    "method": {
+                                                        "id": 38,
+                                                        "code": "1010",
+                                                        "alias": "usdt",
+                                                        "image": "65c16b41be9c61707174721.png",
+                                                        "name": "USDT",
+                                                        "status": true,
+                                                        "parameters": "[]",
+                                                        "supported_currencies": "[]",
+                                                        "crypto": 0,
+                                                        "extra": null,
+                                                        "description": "TJ1nK9gPH9M7xwqyRj8LnxnL6Crhvc6zHw",
+                                                        "input_form": [],
+                                                        "created_at": "2023-07-08T15:47:44.000000Z",
+                                                        "updated_at": "2024-07-24T18:25:43.000000Z"
+                                                    }
+                                                }'
+                                                data-base_symbol=""
+                                                class="btn deposits cmn-btn w-100 text-white"
+                                                data-toggle="modal" data-target="#exampleModal">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/65c16b41be9c61707174721.png" class="card-img-top w-100" alt="USDT">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
-
-
-                                        <li class="list-group-item">
-                                            USDT</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="19" data-resource="{&quot;id&quot;:19,&quot;name&quot;:&quot;USDT&quot;,&quot;currency&quot;:&quot;USDT (TRX)&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1010&quot;,&quot;gateway_alias&quot;:&quot;usdt&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;1.00000000&quot;,&quot;image&quot;:&quot;65c16b41be9c61707174721.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2023-07-08T15:47:44.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:25:43.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:38,&quot;code&quot;:&quot;1010&quot;,&quot;alias&quot;:&quot;usdt&quot;,&quot;image&quot;:&quot;65c16b41be9c61707174721.png&quot;,&quot;name&quot;:&quot;USDT&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;TJ1nK9gPH9M7xwqyRj8LnxnL6Crhvc6zHw&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2023-07-08T15:47:44.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:25:43.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>
+            
+                
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img src="/assets/images/gateway/661d85d6ceef71713210838.png" class="card-img-top w-100" alt="Polygon (MATIC)">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">
+                                        Polygon (MATIC)
+                                    </li>
+                                    <li class="list-group-item">
+                                        <button type="button"
+                                                data-id="20"
+                                                data-resource='{
+                                                    "id": 20,
+                                                    "name": "Polygon (MATIC)",
+                                                    "currency": "MATIC",
+                                                    "symbol": "",
+                                                    "method_code": "1011",
+                                                    "gateway_alias": "polygon_(matic)",
+                                                    "min_amount": "1.00000000",
+                                                    "max_amount": "1000000.00000000",
+                                                    "percent_charge": "0.00",
+                                                    "fixed_charge": "0.00000000",
+                                                    "rate": "0.60000000",
+                                                    "image": "661d85d6ceef71713210838.png",
+                                                    "gateway_parameter": "[]",
+                                                    "created_at": "2024-04-15T15:53:58.000000Z",
+                                                    "updated_at": "2024-07-24T18:23:12.000000Z",
+                                                    "method": {
+                                                        "id": 39,
+                                                        "code": "1011",
+                                                        "alias": "polygon_(matic)",
+                                                        "image": "661d85d6ceef71713210838.png",
+                                                        "name": "Polygon (MATIC)",
+                                                        "status": true,
+                                                        "parameters": "[]",
+                                                        "supported_currencies": "[]",
+                                                        "crypto": 0,
+                                                        "extra": null,
+                                                        "description": "0x13b61B0396982b0fCbA771d787249E273C56488d",
+                                                        "input_form": [],
+                                                        "created_at": "2024-04-15T15:53:58.000000Z",
+                                                        "updated_at": "2024-07-24T18:23:12.000000Z"
+                                                    }
+                                                }'
+                                                data-base_symbol=""
+                                                class="btn deposits cmn-btn w-100 text-white"
+                                                data-toggle="modal" data-target="#exampleModal">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                    <div class="card">
-                        <div class="card-body b-primary" >
-                            <div class="row justify-content-center">
-                                <div class="col-md-5 col-sm-12">
-                                    <img src="/assets/images/gateway/661d85d6ceef71713210838.png" class="card-img-top w-100" alt="Polygon (MATIC)">
-                                </div>
-                                <div class="col-md-7 col-sm-12">
-                                    <ul class="list-group text-center">
-
-
-                                        <li class="list-group-item">
-                                            Polygon (MATIC)</li>
-
-                                 
-                                        <li class="list-group-item">
-                                            <button type="button"  data-id="20" data-resource="{&quot;id&quot;:20,&quot;name&quot;:&quot;Polygon (MATIC)&quot;,&quot;currency&quot;:&quot;MATIC&quot;,&quot;symbol&quot;:&quot;&quot;,&quot;method_code&quot;:&quot;1011&quot;,&quot;gateway_alias&quot;:&quot;polygon_(matic)&quot;,&quot;min_amount&quot;:&quot;1.00000000&quot;,&quot;max_amount&quot;:&quot;1000000.00000000&quot;,&quot;percent_charge&quot;:&quot;0.00&quot;,&quot;fixed_charge&quot;:&quot;0.00000000&quot;,&quot;rate&quot;:&quot;0.60000000&quot;,&quot;image&quot;:&quot;661d85d6ceef71713210838.png&quot;,&quot;gateway_parameter&quot;:&quot;[]&quot;,&quot;created_at&quot;:&quot;2024-04-15T15:53:58.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:23:12.000000Z&quot;,&quot;method&quot;:{&quot;id&quot;:39,&quot;code&quot;:&quot;1011&quot;,&quot;alias&quot;:&quot;polygon_(matic)&quot;,&quot;image&quot;:&quot;661d85d6ceef71713210838.png&quot;,&quot;name&quot;:&quot;Polygon (MATIC)&quot;,&quot;status&quot;:true,&quot;parameters&quot;:&quot;[]&quot;,&quot;supported_currencies&quot;:&quot;[]&quot;,&quot;crypto&quot;:&quot;0&quot;,&quot;extra&quot;:null,&quot;description&quot;:&quot;0x13b61B0396982b0fCbA771d787249E273C56488d&quot;,&quot;input_form&quot;:[],&quot;created_at&quot;:&quot;2024-04-15T15:53:58.000000Z&quot;,&quot;updated_at&quot;:&quot;2024-07-24T18:23:12.000000Z&quot;}}"
-                                            data-base_symbol=""
-                                            class=" btn deposits cmn-btn w-100 text-white" data-toggle="modal" data-target="#exampleModal">
-                                        Deposit</button>
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>            
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-body b-primary">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-sm-12">
+                                <img src="/assets/images/gateway/sui.png" class="card-img-top w-100" alt="Polygon (MATIC)">
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <ul class="list-group text-center">
+                                    <li class="list-group-item">
+                                        Sui
+                                    </li>
+                                    <li class="list-group-item">
+                                        <button type="button"
+                                                data-id="20"
+                                                data-resource='{
+                                                    "id": 23,
+                                                    "name": "Sui",
+                                                    "currency": "SUI",
+                                                    "symbol": "",
+                                                    "method_code": "1011",
+                                                    "gateway_alias": "Sui",
+                                                    "min_amount": "1.00000000",
+                                                    "max_amount": "1000000.00000000",
+                                                    "percent_charge": "0.00",
+                                                    "fixed_charge": "0.00000000",
+                                                    "rate": "0.60000000",
+                                                    "image": "sui.png",
+                                                    "gateway_parameter": "[]",
+                                                    "created_at": "2024-04-15T15:53:58.000000Z",
+                                                    "updated_at": "2024-07-24T18:23:12.000000Z",
+                                                    "method": {
+                                                        "id": 39,
+                                                        "code": "1011",
+                                                        "alias": "Sui",
+                                                        "image": "661d85d6ceef71713210838.png",
+                                                        "name": "Sui",
+                                                        "status": true,
+                                                        "parameters": "[]",
+                                                        "supported_currencies": "[]",
+                                                        "crypto": 0,
+                                                        "extra": null,
+                                                        "description": "0x13b61B0396982b0fCbA771d787249E273C56488d",
+                                                        "input_form": [],
+                                                        "created_at": "2024-04-15T15:53:58.000000Z",
+                                                        "updated_at": "2024-07-24T18:23:12.000000Z"
+                                                    }
+                                                }'
+                                                data-base_symbol=""
+                                                class="btn deposits cmn-btn w-100 text-white"
+                                                data-toggle="modal" data-target="#exampleModal">
+                                            Deposit
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                        </div>
+            </div>            
+            </div>
         </div>
     </section>
  
-
+    <div class="screenshot-container" style="display: none;">
+        <h3>Upload Payment Screenshot</h3>
+        <form id="uploadScreenshotForm">
+            <div class="form-group">
+                <label for="paymentScreenshot">Upload Screenshot:</label>
+                <input type="file" id="paymentScreenshot" class="form-control" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-secondary">
+                Upload Screenshot
+            </button>
+        </form>
+    </div>
+    
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-content-bg">
                 <div class="modal-header">
                     <strong class="modal-title method-name text-white" id="exampleModalLabel"></strong>
-                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-label="Close">
+                    <a class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </a>
                 </div> 
-                <form action="/user/deposit/insert" method="post">
-                    <input type="hidden" name="_token" value="szOoFyg4IeP8vHCxC5J69WshGEzuyKGp19MeoYmz">                    <div class="modal-body">
-                        <div class="form-group">
+                <form>
+                    <input type="hidden" name="_token" value="szOoFyg4IeP8vHCxC5J69WshGEzuyKGp19MeoYmz" onsubmit="return submitUserForm();">                    <div class="modal-body">
+                        <!-- <div class="form-group">
                             <input type="hidden" name="currency" class="edit-currency" value="">
                             <input type="hidden" name="method_code" class="edit-method-code" value="">
                             <input type="hidden" name="gateway_alias" class="edit-gateway_alias" value="">
-                        </div>
-                                                    <div class="form-group">
+                        </div> -->
+                            <div class="form-group">
                                 <label>Enter Amount:</label>
                             <div class="input-group">
                                 <input id="amount" type="text" class="form-control form-control-lg" name="amount" placeholder="0.00" required autocomplete="off">
@@ -340,7 +497,7 @@ window.smartsupp||(function(d) {
                                                 </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn-md cmn-btn text-white">Next</button>
+                        <button type="button" class="btn-md cmn-btn text-white" id="nextButton">Next</button>
                     </div>
                 </form>
             </div>
@@ -743,8 +900,167 @@ window.smartsupp||(function(d) {
     });
 
 </script>
-     
-        <script>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#exampleModal form');
+    
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent the form from reloading the page
+        console.log('Form submitted! Perform your logic here.');
+        
+        // Add your logic to handle the form data
+        const amount = document.querySelector('#amount').value;
+        console.log(`Entered amount: ${amount}`);
+    });
+});
+
+</script> -->
+
+<script>
+    function generateUniqueCode() {
+        return Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit random number
+    };
+
+    let currentResource = null; // Initialize a variable to hold the current resource data
+
+    // Listen for clicks on all deposit buttons
+    document.querySelectorAll('.btn.deposits').forEach(button => {
+        button.addEventListener('click', event => {
+            const resourceData = button.getAttribute('data-resource');
+            try {
+                // Parse the JSON data from the data-resource attribute
+                const parsedData = JSON.parse(resourceData);
+                
+                // Extract only the id, currency, and name
+                currentResource = {
+                    id: parsedData.id,
+                    currency: parsedData.currency,
+                    name: parsedData.name
+                };
+                console.log('Selected resource data:', currentResource);
+            } catch (error) {
+                console.error("Error parsing JSON from data-resource:", error);
+                console.error("Invalid JSON:", resourceData);
+            }
+        });
+    });
+
+    // Listen for the next button click
+    document.querySelector('#nextButton').addEventListener('click', async function () {
+        const amount = document.getElementById('amount').value; // ID of the amount input field
+        
+        if (!amount || isNaN(amount) || Number(amount) <= 0) {
+            alert('Please enter a valid amount');
+            return;
+        }
+
+        // Check if resource data is available
+        if (!currentResource) {
+            alert('No payment method selected!');
+            return;
+        }
+
+        // Generate a unique 6-digit code for the deposit request
+        const depositCode = generateUniqueCode();
+
+
+
+        // Combine the amount with the current resource data
+        const data = {
+            amount: 100, // Example amount, you can get this from user input
+            paymentMethod: {
+                id: currentResource.id, 
+                name: currentResource.name,
+                currency: currentResource.currency,
+            },
+            depositCode
+        };
+
+        console.log('Data to send:', data);
+
+        //alert('Deposit details submitted (Mocked). Now upload your screenshot.');
+
+    // Show screenshot upload form for testing
+    //document.querySelector('.deposit-container').style.display = 'none';
+        document.querySelector('.screenshot-container').style.display = 'block';
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('https://trustscalp-backend.onrender.com/api/deposit', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('depositId', result.depositId);
+                alert(`Deposit successful! Please send the payment to the following address:\n\n${result.paymentAddress}\n\nOnce the payment is completed, upload a screenshot of the transaction along with the deposit ID: ${result.depositId}`);
+                console.log('Backend Response:', result);
+                document.querySelector('.screenshot-container').style.display = 'block';
+            } else {
+                alert(result.message || 'Deposit failed!');
+                console.error('Backend Error:', result);
+            }
+        } catch (error) {
+            console.error('Error sending deposit request:', error);
+            alert('An unexpected error occurred.');
+        }
+    });
+</script> 
+<script>
+    document.getElementById('uploadScreenshotForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const depositId = localStorage.getItem('depositId'); // Retrieve depositId from localStorage
+
+        const screenshot = document.getElementById('paymentScreenshot').files[0];
+
+        if (!screenshot) {
+            alert('Please upload a payment screenshot.');
+            return;
+        }
+        if (!depositId) {
+            alert('Please submit your deposit details first.');
+            return;
+        }
+
+        // Prepare form data for screenshot upload
+        const formData = new FormData();
+        formData.append('screenshot', screenshot);
+        formData.append('depositId', depositId); // Attach deposit ID
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('https://trustscalp-backend.onrender.com/api/deposit/screenshot', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Screenshot uploaded successfully!');
+                // Optionally reset forms or redirect user
+                document.getElementById('uploadScreenshotForm').reset();
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error uploading screenshot:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+
+</script>
+    <!-- <script>
         $(document).ready(function(){
             "use strict";
             $('.deposits').on('click', function () {
@@ -768,7 +1084,28 @@ window.smartsupp||(function(d) {
                 $('.edit-gateway_alias').val(result.gateway_alias);
             });
         });
-    </script>
+    </script> -->
+    <!-- //Example: Send the data to the backend
+        fetch('https://trustscalp-backend.onrender.com/api/deposit', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Deposit response:', result);
+                if (result.paymentAddress) {
+                    alert('Deposit successful! Please send the amount to: ' + result.paymentAddress);
+                } else {
+                    alert('Deposit failed!');
+                }
+                // Close the modal if needed
+                $('#exampleModal').modal('hide');
+            })
+            .catch(error => console.error('Error:', error)); -->
 
 </body>
 

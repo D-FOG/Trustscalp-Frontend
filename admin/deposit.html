@@ -5,12 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Deposit Management</title>
         <link rel="stylesheet" href="styleroot/styles.css">
+        <link rel="stylesheet" href="styleroot/sidebar.css">
         <!-- CDN for Icons (FontAwesome) -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<!-- 
         <style>
             /* Overlay Styles */
             .overlay {
@@ -28,30 +29,44 @@
                 pointer-events: all; /* Capture all events */
                 text-align: center; /* Center text */
             }
-        </style>
+        </style> -->
     </head>
     <body>
         <div class="dashboard-container">
             <!-- Sidebar -->
-            <div id="sidebar-container"></div>
+            <div>
+                <button id="hamburger-icon" class="hamburger" aria-label="Toggle Sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div id="sidebar-container"></div>
+             </div>
 
 
             <main class="main-content">
                 <h1>Deposit Management</h1>
-                <table class="responsive-table">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="depositTableBody">
-                        <!-- Deposit rows will be populated via JS -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Deposit Amount</th>
+                                <th>Deposit ID</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositTableBody">
+                            <!-- Rows populated dynamically via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <nav>
+                    <ul class="pagination" id="pagination">
+                        <!-- Pagination links will be dynamically populated -->
+                    </ul>
+                </nav>
             </main>
         </div>
         <!-- Bootstrap JS and dependencies (jQuery) -->
@@ -59,8 +74,106 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
  
-        <script src="/admin/js/script.js"></script>
         <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const sidebarContainer = document.getElementById("sidebar-container");
+    
+                // Load and initialize the sidebar
+                fetch("sidebar.html")
+                    .then(response => response.text())
+                    .then(data => {
+                        sidebarContainer.innerHTML = data;
+                        initializeSidebar();
+                        loadAdminProfile(); // Load admin profile after sidebar is loaded
+                        initializeLogoutButton();
+                    })
+                    .catch(error => console.error("Error loading sidebar:", error));
+            });
+    
+            function initializeSidebar() {
+                const sidebar = document.getElementById("sidebar");
+                const hamburgerIcon = document.getElementById("hamburger-icon");
+                const mainContent = document.querySelector(".main-content");
+
+                // Ensure elements exist before proceeding
+                if (!sidebar || !hamburgerIcon) return;
+    
+                const sidebarOverlay = document.createElement("div");
+                sidebarOverlay.classList.add("sidebar-overlay");
+                document.body.appendChild(sidebarOverlay);
+    
+                const toggleSidebar = () => {
+                    const isMobile = window.innerWidth <= 768;
+                    if (isMobile) {
+                        sidebar.classList.toggle("open");
+                        sidebarOverlay.classList.toggle("visible", sidebar.classList.contains("open"));
+                    } else {
+                        sidebar.classList.toggle("collapsed");
+                        // Dynamically adjust main-content margin
+                    mainContent.style.marginLeft = sidebar.classList.contains("collapsed") ? "70px" : "250px";
+                    }
+                };
+    
+                // Event Listeners
+                hamburgerIcon.addEventListener("click", toggleSidebar);
+                sidebarOverlay.addEventListener("click", () => {
+                    sidebar.classList.remove("open");
+                    sidebarOverlay.classList.remove("visible");
+                });
+    
+                window.addEventListener("resize", () => {
+                    const isMobile = window.innerWidth <= 768;
+                    if (!isMobile) {
+                        sidebar.classList.remove("open");
+                        sidebarOverlay.classList.remove("visible");
+                    }else {
+                    mainContent.style.marginLeft = "0"; // Reset margin for mobile view
+                }
+                });
+            }
+    
+            async function loadAdminProfile() {
+                const token = localStorage.getItem("authToken");
+                try {
+                    const response = await fetch("https://trustscalp-backend.onrender.com/api/admin/get-admin", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
+                    });
+                    if (!response.ok) throw new Error("Failed to fetch admin profile");
+    
+                    const data = await response.json();
+                    const adminNameElement = document.getElementById("adminName");
+                    const adminImgElement = document.getElementById("adminImg");
+    
+                    if (adminNameElement && adminImgElement) {
+                        adminNameElement.innerText = data.details.username;
+                        adminImgElement.src = data.details.profileImageUrl || "https://via.placeholder.com/80";
+                    } else {
+                        console.error("Admin profile elements not found.");
+                    }
+                } catch (error) {
+                    console.error("Error loading admin profile:", error);
+                }
+            }
+            function initializeLogoutButton() {
+                const logoutBtn = document.querySelector('.logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function () {
+                        // Clear any stored authentication tokens
+                        localStorage.removeItem("authToken");
+    
+                        // Redirect to the login page
+                        window.location.href = '/admin/login.html';
+                    });
+                } else {
+                    console.error("Logout button not found.");
+                }
+            }
+        </script>
+        <!-- <script>
             document.addEventListener("DOMContentLoaded", function() {
                 fetch('sidebar.html')
                     .then(response => response.text())
@@ -97,7 +210,7 @@
                 async function loadAdminProfile() {
                     const token = localStorage.getItem('authToken');
                     try {
-                        const response = await fetch('http://localhost:8000/api/admin/get-admin', {
+                        const response = await fetch('https://trustscalp-backend.onrender.com/api/admin/get-admin', {
                             method: 'GET',
                             headers: {
                                 'Authorization': `Bearer ${token}`,
@@ -161,6 +274,134 @@
                 window.addEventListener('resize', checkMobileView);
 
             });
+        </script> -->
+        <script>
+            let deposits = []; // Array to hold fetched deposits
+
+            async function fetchDeposits() {
+                console.log('Fetching deposits...');
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    console.error('No authentication token found.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('https://trustscalp-backend.onrender.com/api/admin/get-deposits', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        deposits = data; // Store the fetched deposits
+                        renderTable(); // Render the table after fetching data
+                    } else {
+                        console.error('No deposits found.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching deposits:', error);
+                }
+            }
+
+            window.updateDeposit = function (id) {
+                deposits.forEach(deposit => {
+                    console.log('Deposit:', deposit.depositCode, 'Passed ID:', id);
+                });
+                const deposit = deposits.find(deposit => deposit.depositCode === id);
+                if (!deposit) {
+                    alert('Deposit not found.');
+                    return;
+                }
+
+                const newAmount = prompt(`Enter new amount for ${deposit.userId?.email || 'No email'}:`, `${ deposit.amount || ''}`);
+                const token = localStorage.getItem('authToken');
+                if (newAmount !== null && !isNaN(newAmount) && newAmount > 0) {
+                    fetch(`https://trustscalp-backend.onrender.com/api/admin/update-deposits`, { 
+                        method: "PUT",
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            depositAmount: newAmount,
+                            status: "approved", // Assuming status is always approved after update
+                            depositCode: deposit.depositCode
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            deposit.depositAmount = newAmount;
+                            deposit.status = "approved"; // Update status to approved
+                            renderTable(); // Re-render the table
+                            alert("Deposit updated successfully!");
+                        } else {
+                            alert("Failed to update deposit.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Error updating deposit.");
+                    });
+                } else {
+                    alert("Invalid amount entered. Please enter a valid number.");
+                }
+            };
+
+            function renderTable() {
+                const tableBody = document.getElementById('depositTableBody');
+                if (tableBody) {
+                    tableBody.innerHTML = ''; // Clear existing table rows
+
+                    if (deposits.length == 0) {
+                        tableBody.innerHTML = '<tr><td colspan="5">No deposits found.</td></tr>';
+                        return;
+                    }
+                    
+                    deposits.forEach((deposit, index) => {
+                        // Access the properties directly
+                        const userEmail = deposit.userId?.email || 'No email';  // Ensure safe access to email
+                        const depositAmount = deposit.amount || 'N/A';  // Fallback for missing amount
+                        const depositId = deposit.depositCode
+                        const depositStatus = deposit.status || 'N/A';  // Fallback for missing status
+                        const screenshotUrl = deposit.screenshotUrl || '';  // Handle missing screenshotUrl
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>  <!-- Deposit numbering-->
+                            <td>${userEmail}</td>  <!-- User Email -->
+                            <td>$${depositAmount ? depositAmount : '0'}</td>  <!-- Deposit Amount -->
+                            <td>${depositId ? depositId: 'N/A'}</td>  <!-- Deposit Id -->
+                            <td>${depositStatus}</td>  <!-- Deposit Status -->
+                            <td>
+                                <button onclick="updateDeposit('${deposit.depositCode}')">Update</button>
+                                <button class="btn btn-secondary view-screenshot-btn" data-url="${screenshotUrl}">View Screenshot</button>
+                                <button onclick="deleteDeposit('${deposit.depositCode}')">Delete</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                    // Add event listener for screenshot buttons
+                    const screenshotButtons = document.querySelectorAll(".view-screenshot-btn");
+                    screenshotButtons.forEach(button => {
+                        button.addEventListener("click", function () {
+                            const screenshotUrl = button.dataset.url;
+                            if (screenshotUrl) {
+                                window.open(screenshotUrl, "_blank");
+                            }
+                        });
+                    });
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                fetchDeposits();
+            });
+
         </script>
+        
     </body>
 </html>

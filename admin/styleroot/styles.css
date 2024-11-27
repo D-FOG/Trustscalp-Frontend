@@ -12,77 +12,12 @@ body {
 .admin-container {
     display: flex;
 }
-
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-}
-
-.admin-profile {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.admin-img {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-}
-
-.admin-name {
-    margin: 10px 0;
-    font-weight: 600;
-}
-
-.logout-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.sidebar-menu {
-    list-style: none;
-    margin-top: 40px;
-}
-
-.sidebar-menu li {
-    margin-bottom: 20px;
-}
-
-.sidebar-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
+ .main-body{
     display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.sidebar-menu a:hover{
-    background-color: #34495e;
-    border-radius: 5px;
-}
-
-/* .sidebar-menu a.active {
-    background-color: #34495e;
-    border-radius: 5px;
-} */
-
+ }
 .main-content {
     margin-left: 250px;
-    padding: 20px;
+    padding: 30px;
     flex-grow: 1;
 }
 
@@ -90,6 +25,16 @@ body {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 20px;
+    transition: margin-left 0.3s ease;
+}
+/* Adjust for Collapsed Sidebar */
+.sidebar.collapsed ~ .main-content {
+    margin-left: 70px; /* Collapsed sidebar width */
+}
+
+/* For mobile view when sidebar is hidden */
+.sidebar.open + .main-content {
+    margin-left: 0; /* Sidebar is overlaid, so reset margin */
 }
 
 .table-container {
@@ -100,18 +45,18 @@ body {
     margin-top: 20px;
 }
 
-.user-table, .wallet-table {
+.user-table, .wallet-table, .withdrawal-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.user-table th, .user-table td, .wallet-table th, .wallet-table td {
+.user-table th, .user-table td, .wallet-table th, .wallet-table td{
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-.user-table th, .wallet-table th {
+.user-table th, .wallet-table th, .withdrawal-table th {
     background-color: #3498db;
     color: white;
 }
@@ -130,12 +75,19 @@ body {
     background-color: #090d0c;
 }
 
-.withdrawal-table {
-    width: 100%;
-    border-collapse: collapse;
+.btn-primary{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    margin: 5px;
 }
 
-.withdrawal-table th, .withdrawal-table td {
+/* .withdrawal-table {
+    width: 100%;
+    border-collapse: collapse;
+} */
+
+/* .withdrawal-table th, .withdrawal-table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -144,7 +96,9 @@ body {
 .withdrawal-table th {
     background-color: #3498db;
     color: white;
-}
+} */
+
+
 
 .action-buttons button {
     margin-right: 5px;
@@ -405,20 +359,6 @@ body {
     cursor: pointer;
 }
 
-/* Hamburger Menu */
-.hamburger {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-}
-
-.sidebar::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in Chrome, Safari, and Edge */
-}
-
 .pagination-controls{
     margin-top: 3px;
 }
@@ -476,28 +416,7 @@ button#close-overlay:hover {
         flex-direction: column;
     }
 
-    .sidebar {
-        display: none;
-        position: fixed;
-        width: 250px;
-        top: 0;
-        left: 0;
-        background-color: #2c3e50;
-        height: 100%;
-        z-index: 1000;
-        transition: transform 0.3s ease;
-    }
-
-    .sidebar.open {
-        display: block;
-        transform: translateX(0);
-    }
-
     .main-content {
         margin-left: 0;
-    }
-
-    .hamburger {
-        display: block;
     }
 }
