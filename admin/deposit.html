@@ -63,7 +63,7 @@
                 </div>
                 <!-- Pagination -->
                 <nav>
-                    <ul class="pagination" id="pagination">
+                    <ul class="pagination" id="paginationContainer">
                         <!-- Pagination links will be dynamically populated -->
                     </ul>
                 </nav>
@@ -276,7 +276,135 @@
             });
         </script> -->
         <script>
+            // let deposits = []; // Array to hold fetched deposits
+
+            // async function fetchDeposits() {
+            //     console.log('Fetching deposits...');
+            //     const token = localStorage.getItem('authToken');
+            //     if (!token) {
+            //         console.error('No authentication token found.');
+            //         return;
+            //     }
+
+            //     try {
+            //         const response = await fetch('https://trustscalp-backend.onrender.com/api/admin/get-deposits', {
+            //             method: 'GET',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'Authorization': `Bearer ${token}`,
+            //             }
+            //         });
+
+            //         const data = await response.json();
+
+            //         if (response.ok) {
+            //             deposits = data; // Store the fetched deposits
+            //             renderTable(); // Render the table after fetching data
+            //         } else {
+            //             console.error('No deposits found.');
+            //         }
+            //     } catch (error) {
+            //         console.error('Error fetching deposits:', error);
+            //     }
+            // }
+
+            // window.updateDeposit = function (id) {
+            //     deposits.forEach(deposit => {
+            //         console.log('Deposit:', deposit.depositCode, 'Passed ID:', id);
+            //     });
+            //     const deposit = deposits.find(deposit => deposit.depositCode === id);
+            //     if (!deposit) {
+            //         alert('Deposit not found.');
+            //         return;
+            //     }
+
+            //     const newAmount = prompt(`Enter new amount for ${deposit.userId?.email || 'No email'}:`, `${ deposit.amount || ''}`);
+            //     const token = localStorage.getItem('authToken');
+            //     if (newAmount !== null && !isNaN(newAmount) && newAmount > 0) {
+            //         fetch(`https://trustscalp-backend.onrender.com/api/admin/update-deposits`, { 
+            //             method: "PUT",
+            //             headers: {
+            //                 'Authorization': `Bearer ${token}`,
+            //                 'Content-Type': 'application/json'
+            //             },
+            //             body: JSON.stringify({
+            //                 depositAmount: newAmount,
+            //                 status: "approved", // Assuming status is always approved after update
+            //                 depositCode: deposit.depositCode
+            //             })
+            //         })
+            //         .then(response => {
+            //             if (response.ok) {
+            //                 deposit.depositAmount = newAmount;
+            //                 deposit.status = "approved"; // Update status to approved
+            //                 renderTable(); // Re-render the table
+            //                 alert("Deposit updated successfully!");
+            //             } else {
+            //                 alert("Failed to update deposit.");
+            //             }
+            //         })
+            //         .catch(error => {
+            //             alert("Error updating deposit.");
+            //         });
+            //     } else {
+            //         alert("Invalid amount entered. Please enter a valid number.");
+            //     }
+            // };
+
+            // function renderTable() {
+            //     const tableBody = document.getElementById('depositTableBody');
+            //     if (tableBody) {
+            //         tableBody.innerHTML = ''; // Clear existing table rows
+
+            //         if (deposits.length == 0) {
+            //             tableBody.innerHTML = '<tr><td colspan="5">No deposits found.</td></tr>';
+            //             return;
+            //         }
+                    
+            //         deposits.forEach((deposit, index) => {
+            //             // Access the properties directly
+            //             const userEmail = deposit.userId?.email || 'No email';  // Ensure safe access to email
+            //             const depositAmount = deposit.amount || 'N/A';  // Fallback for missing amount
+            //             const depositId = deposit.depositCode
+            //             const depositStatus = deposit.status || 'N/A';  // Fallback for missing status
+            //             const screenshotUrl = deposit.screenshotUrl || '';  // Handle missing screenshotUrl
+
+            //             const row = document.createElement('tr');
+            //             row.innerHTML = `
+            //                 <td>${index + 1}</td>  <!-- Deposit numbering-->
+            //                 <td>${userEmail}</td>  <!-- User Email -->
+            //                 <td>$${depositAmount ? depositAmount : '0'}</td>  <!-- Deposit Amount -->
+            //                 <td>${depositId ? depositId: 'N/A'}</td>  <!-- Deposit Id -->
+            //                 <td>${depositStatus}</td>  <!-- Deposit Status -->
+            //                 <td>
+            //                     <button onclick="updateDeposit('${deposit.depositCode}')">Update</button>
+            //                     <button class="btn btn-secondary view-screenshot-btn" data-url="${screenshotUrl}">View Screenshot</button>
+            //                     <button onclick="deleteDeposit('${deposit.depositCode}')">Delete</button>
+            //                 </td>
+            //             `;
+            //             tableBody.appendChild(row);
+            //         });
+            //         // Add event listener for screenshot buttons
+            //         const screenshotButtons = document.querySelectorAll(".view-screenshot-btn");
+            //         screenshotButtons.forEach(button => {
+            //             button.addEventListener("click", function () {
+            //                 const screenshotUrl = button.dataset.url;
+            //                 if (screenshotUrl) {
+            //                     window.open(screenshotUrl, "_blank");
+            //                 }
+            //             });
+            //         });
+            //     }
+            // }
+
+            // document.addEventListener('DOMContentLoaded', function () {
+            //     fetchDeposits();
+            // });
+
+
             let deposits = []; // Array to hold fetched deposits
+            let currentPage = 1; // Current active page
+            const itemsPerPage = 5; // Number of deposits per page
 
             async function fetchDeposits() {
                 console.log('Fetching deposits...');
@@ -307,8 +435,7 @@
                     console.error('Error fetching deposits:', error);
                 }
             }
-
-            window.updateDeposit = function (id) {
+             window.updateDeposit = function (id) {
                 deposits.forEach(deposit => {
                     console.log('Deposit:', deposit.depositCode, 'Passed ID:', id);
                 });
@@ -353,37 +480,44 @@
 
             function renderTable() {
                 const tableBody = document.getElementById('depositTableBody');
-                if (tableBody) {
-                    tableBody.innerHTML = ''; // Clear existing table rows
+                const paginationContainer = document.getElementById('paginationContainer');
 
-                    if (deposits.length == 0) {
-                        tableBody.innerHTML = '<tr><td colspan="5">No deposits found.</td></tr>';
-                        return;
-                    }
-                    
-                    deposits.forEach((deposit, index) => {
-                        // Access the properties directly
-                        const userEmail = deposit.userId?.email || 'No email';  // Ensure safe access to email
-                        const depositAmount = deposit.amount || 'N/A';  // Fallback for missing amount
-                        const depositId = deposit.depositCode
-                        const depositStatus = deposit.status || 'N/A';  // Fallback for missing status
-                        const screenshotUrl = deposit.screenshotUrl || '';  // Handle missing screenshotUrl
+                if (!tableBody || !paginationContainer) return;
 
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${index + 1}</td>  <!-- Deposit numbering-->
-                            <td>${userEmail}</td>  <!-- User Email -->
-                            <td>$${depositAmount ? depositAmount : '0'}</td>  <!-- Deposit Amount -->
-                            <td>${depositId ? depositId: 'N/A'}</td>  <!-- Deposit Id -->
-                            <td>${depositStatus}</td>  <!-- Deposit Status -->
-                            <td>
-                                <button onclick="updateDeposit('${deposit.depositCode}')">Update</button>
-                                <button class="btn btn-secondary view-screenshot-btn" data-url="${screenshotUrl}">View Screenshot</button>
-                                <button onclick="deleteDeposit('${deposit.depositCode}')">Delete</button>
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
+                tableBody.innerHTML = ''; // Clear existing table rows
+
+                if (deposits.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5">No deposits found.</td></tr>';
+                    paginationContainer.innerHTML = ''; // Clear pagination if no data
+                    return;
+                }
+
+                // Calculate indices for current page
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, deposits.length);
+
+                // Render deposits for the current page
+                const currentDeposits = deposits.slice(startIndex, endIndex);
+                currentDeposits.forEach((deposit, index) => {
+                    const userEmail = deposit.userId?.email || 'No email';
+                    const depositAmount = deposit.amount || 'N/A';
+                    const depositId = deposit.depositCode;
+                    const depositStatus = deposit.status || 'N/A';
+                    const screenshotUrl = deposit.screenshotUrl || '';
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${startIndex + index + 1}</td>
+                        <td>${userEmail}</td>
+                        <td>$${depositAmount}</td>
+                        <td>${depositId || 'N/A'}</td>
+                        <td>${depositStatus}</td>
+                        <td>
+                            <button onclick="updateDeposit('${deposit.depositCode}')">Update</button>
+                            <button class="btn btn-secondary view-screenshot-btn" data-url="${screenshotUrl}">View Screenshot</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
                     // Add event listener for screenshot buttons
                     const screenshotButtons = document.querySelectorAll(".view-screenshot-btn");
                     screenshotButtons.forEach(button => {
@@ -394,13 +528,61 @@
                             }
                         });
                     });
-                }
+                });
+
+                // Add pagination controls
+                renderPagination();
+            }
+
+            function renderPagination() {
+                const paginationContainer = document.getElementById('paginationContainer');
+                const totalPages = Math.ceil(deposits.length / itemsPerPage);
+
+                paginationContainer.innerHTML = ''; // Clear existing pagination
+
+                // Previous button
+                const prevButton = document.createElement('button');
+                prevButton.innerText = 'Previous';
+                prevButton.disabled = currentPage === 1;
+                prevButton.onclick = () => {
+                    currentPage--;
+                    renderTable();
+                };
+                paginationContainer.appendChild(prevButton);
+
+                // Current page number
+                const pageNumber = document.createElement('span');
+                pageNumber.innerText = `Page ${currentPage} of ${totalPages}`;
+                pageNumber.style.margin = '0 10px'; // Add spacing
+                paginationContainer.appendChild(pageNumber);
+
+
+                // // Page numbers
+                // for (let i = 1; i <= totalPages; i++) {
+                //     const pageButton = document.createElement('button');
+                //     pageButton.innerText = i;
+                //     pageButton.classList.toggle('active', currentPage === i);
+                //     pageButton.onclick = () => {
+                //         currentPage = i;
+                //         renderTable();
+                //     };
+                //     paginationContainer.appendChild(pageButton);
+                // }
+
+                // Next button
+                const nextButton = document.createElement('button');
+                nextButton.innerText = 'Next';
+                nextButton.disabled = currentPage === totalPages;
+                nextButton.onclick = () => {
+                    currentPage++;
+                    renderTable();
+                };
+                paginationContainer.appendChild(nextButton);
             }
 
             document.addEventListener('DOMContentLoaded', function () {
                 fetchDeposits();
             });
-
         </script>
         
     </body>

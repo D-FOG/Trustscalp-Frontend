@@ -7,8 +7,14 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f4f4f9;
+    min-height: 100vh;
 }
-
+html, body {
+    overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-y: hidden; /* Prevent vertical scrolling */
+    width: 100%; /* Ensure the body doesn't exceed viewport width */
+    height: 100%; /* Ensure the body fills the viewport height */
+}
 .admin-container {
     display: flex;
 }
@@ -19,6 +25,8 @@ body {
     margin-left: 250px;
     padding: 30px;
     flex-grow: 1;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .main-header {
@@ -410,13 +418,33 @@ button#close-overlay:hover {
     transform: scale(1.05); /* Slight zoom effect */
 }
 
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    height: 55px;
+}
+
+::-webkit-scrollbar {
+    display: none; /* Hides scrollbars in WebKit browsers */
+}
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .admin-container {
         flex-direction: column;
     }
+    .table-container {
+        overflow-x: auto; /* Enables horizontal scrolling */
+    }
+
+    .user-table, .wallet-table, .withdrawal-table {
+        min-width: 600px; /* Ensure the table has a minimum width */
+    }
 
     .main-content {
         margin-left: 0;
+    }
+    body {
+        height: 700px;
     }
 }
