@@ -543,11 +543,7 @@ window.smartsupp||(function(d) {
               <div class="col-lg-6">
                 <div class="form-group mb-2 animation"  data-animation="fadeInUp" data-animation-delay="0.6s">
                   <div class="input-group ">
-                      <div class="input-group-prepend">
-                        <span class=" custom-input-group">
-                          <input type="text" id="countryCode" name="countryCode" class="form-control medium-input bg-white" readonly style="width:80px">
-                        </span>
-                      </div>
+                    
                       <input type="text" id="mobile" name="mobile" class="form-control medium-input bg-white" value="" placeholder="Your Phone Number" >
                   </div>
                 </div>
@@ -908,18 +904,18 @@ window.smartsupp||(function(d) {
 
     <script>
         // Automatically update the country code when a country is selected
-        document.getElementById('country').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const countryCode = selectedOption.getAttribute('data-coder');
-            document.getElementById('countryCode').value = countryCode;
-        });
+        // document.getElementById('country').addEventListener('change', function() {
+        //     const selectedOption = this.options[this.selectedIndex];
+        //     const countryCode = selectedOption.getAttribute('data-coder');
+        //     document.getElementById('countryCode').value = countryCode;
+        // });
 
         // Function to validate form inputs and show errors using iziToast
         function validateForm(formData) {
             const errors = [];
 
             // Check if any field is empty
-            if (!formData.firstname || !formData.lastname || !formData.email || !formData.country || !formData.countryCode || 
+            if (!formData.firstname || !formData.lastname || !formData.email || !formData.country || 
                 !formData.phonenumber || !formData.username || !formData.password || !formData.passwordConfirm) {
                 errors.push("All fields are required.");
             }
@@ -954,7 +950,7 @@ window.smartsupp||(function(d) {
                 lastname: document.getElementById('lastname').value,
                 email: document.getElementById('email').value,
                 country: document.getElementById('country').value,
-                countryCode: document.getElementById('countryCode').value,
+                //countryCode: document.getElementById('countryCode').value,
                 phonenumber: document.getElementById('mobile').value,
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value,
@@ -997,10 +993,11 @@ window.smartsupp||(function(d) {
                 
                 // Redirect or show success message
                 notify('success', 'Signup successful!');
-                
-                // Redirect to index.js
-                //window.location.href = '/user/dashboard.html';
-                
+
+                setTimeout(() => {
+                    window.location.href = '/login.html'; // Replace '/login' with your actual login page route
+                }, 2000);
+                  
                 } else {
                 console.error('Error signing up:', data.message, data);
                 notify('error', data.message);

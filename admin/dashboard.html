@@ -56,6 +56,9 @@
                                 <th>Wallet Balance</th>
                                 <th>Total deposits</th>
                                 <th>Total Withdrawals</th>
+                                <th>Total Profits</th>
+                                <th>Update Balance</th>
+                                <th>Update Profits</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -373,15 +376,27 @@
                     row.innerHTML = `
                         <td>${rowNumber}</td>
                         <td>${user.email}</td>
-                        <td>$${user.walletBalance ? user.walletBalance  : `0`}</td>
-                        <td>$${user.totalDeposits ? user.totalDeposits :`0`}</td>
-                        <td>$${user.totalWithdrawals ? user.totalWithdrawals :`0`}</td>
+                        <td>$${user.walletBalance ? user.walletBalance :0}</td>
+                        <td>$${user.totalDeposits ? user.totalDeposits :0}</td>
+                        <td>$${user.totalWithdrawals ? user.totalWithdrawals :0}</td>
+                        <td>$${user.totalProfits ? user.totalProfits :0}</td>
+                        <td>
+                            <input type="number" class="form-control wallet-balance-input" value="${user.walletBalance || 0}" data-id="${user.email}" />
+                        </td>
+                        
+                        <td>
+                            <input type="number" class="form-control total-profits-input" value="${user.totalProfits || 0}" data-id="${user.email}" />
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-update" data-id="${user.email}">Update</button>
+                        </td>
                         <td>
                             <button class="delete-btn" data-user-id="${user.id}">Delete</button>
                         </td>
                     `;
                     userTableBody.appendChild(row);
                 });
+                attachUpdateEventListeners();
             }
         }
         
@@ -427,6 +442,52 @@
                 alert('Update functionality goes here.');
             }
         });
+        function attachUpdateEventListeners() {
+            const updateButtons = document.querySelectorAll('.btn-update');
+            updateButtons.forEach((button) => {
+                button.addEventListener('click', async (event) => {
+                    const email = event.target.getAttribute('data-id');
+                    const walletBalanceInput = document.querySelector(`.wallet-balance-input[data-id="${email}"]`);
+                    const totalProfitsInput = document.querySelector(`.total-profits-input[data-id="${email}"]`);
+
+                    console.log(walletBalanceInput, totalProfitsInput, email)
+                    if (!walletBalanceInput || !totalProfitsInput) {
+                        alert('Error: Missing input fields for update.');
+                        return;
+                    }
+                    const updatedData = {
+                        email,
+                        walletBalance: walletBalanceInput.value,
+                        totalProfits: totalProfitsInput.value,
+                    };
+
+                    console.log(updatedData)
+
+                    try {
+                        const token = localStorage.getItem('authToken');
+                        const response = await fetch(`https://trustscalp-backend.onrender.com/api/admin/update-balance`, {
+                            method: 'PUT', // Assuming PUT for updates
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`,
+                            },
+                            body: JSON.stringify(updatedData),
+                        });
+
+                        if (response.ok) {
+                            alert('User data updated successfully.');
+                        } else {
+                            const errorData = await response.json();
+                            console.error('Error updating user:', errorData);
+                            alert('Failed to update user data.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating user data.');
+                    }
+                });
+            });
+        }
 
         fetchUsers();
     </script>

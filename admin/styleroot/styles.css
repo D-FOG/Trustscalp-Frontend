@@ -11,7 +11,7 @@ body {
 }
 html, body {
     overflow-x: auto; /* Allow horizontal scrolling */
-    overflow-y: hidden; /* Prevent vertical scrolling */
+    overflow-y: auto; /* Prevent vertical scrolling */
     width: 100%; /* Ensure the body doesn't exceed viewport width */
     height: 100%; /* Ensure the body fills the viewport height */
 }
@@ -435,6 +435,7 @@ button#close-overlay:hover {
     }
     .table-container {
         overflow-x: auto; /* Enables horizontal scrolling */
+        overflow-y:auto;
     }
 
     .user-table, .wallet-table, .withdrawal-table {
