@@ -804,7 +804,7 @@ window.smartsupp||(function(d) {
                                     </script>
                     </ul>
                     <!-- * others -->
-
+                    <!-- <p><strong>${result.depositId}</strong></p> -->
                 </div>
             </div>
         </div>
@@ -832,6 +832,8 @@ window.smartsupp||(function(d) {
     <script src="/assets/templates/bit_gold/js/app.js"></script>
     <link rel="stylesheet" href="/assets/templates/bit_gold/css/iziToast.min.css">
 <script src="/assets/templates/bit_gold/js/iziToast.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <script>
@@ -977,7 +979,7 @@ window.smartsupp||(function(d) {
             depositCode
         };
 
-        console.log('Data to send:', data);
+        console.log('Data to send:', data.paymentMethod.name);
 
         //alert('Deposit details submitted (Mocked). Now upload your screenshot.');
 
@@ -1000,7 +1002,29 @@ window.smartsupp||(function(d) {
 
             if (response.ok) {
                 localStorage.setItem('depositId', result.depositId);
-                alert(`Deposit successful! Please send the payment to the following address:\n\n${result.paymentAddress}\n\nOnce the payment is completed, upload a screenshot of the transaction along with the deposit ID: ${result.depositId}`);
+                // Show SweetAlert with Copy functionality
+                Swal.fire({
+                    title: 'Deposit Request Successful!',
+                    html: `
+                        <p>Please send the payment to the following address:</p>
+                        <p>
+                            <strong>${result.paymentAddress}</strong>
+                        </p>
+                        <p>Once the payment is completed, upload a screenshot of the payment</p>
+                    `,
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Copy Address',
+                }).then((copyAction) => {
+                    if (copyAction.isConfirmed) {
+                        // Copy payment address to clipboard
+                        navigator.clipboard.writeText(result.paymentAddress).then(() => {
+                            Swal.fire('Copied!', 'Payment address copied to clipboard.', 'success');
+                        }).catch(err => {
+                            Swal.fire('Error', 'Failed to copy payment address.', 'error');
+                        });
+                    }
+                });
                 console.log('Backend Response:', result);
                 document.querySelector('.screenshot-container').style.display = 'block';
             } else {

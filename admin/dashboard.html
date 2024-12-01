@@ -58,6 +58,8 @@
                                 <th>Total Withdrawals</th>
                                 <th>Total Profits</th>
                                 <th>Update Balance</th>
+                                <th>Update Deposits</th>
+                                <th>Update Withdrawals</th>
                                 <th>Update Profits</th>
                                 <th>Action</th>
                             </tr>
@@ -383,7 +385,12 @@
                         <td>
                             <input type="number" class="form-control wallet-balance-input" value="${user.walletBalance || 0}" data-id="${user.email}" />
                         </td>
-                        
+                         <td>
+                            <input type="number" class="form-control total-deposits-input" value="${user.totalDeposits || 0}" data-id="${user.email}" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control total-withdrawals-input" value="${user.totalWithdrawals || 0}" data-id="${user.email}" />
+                        </td>
                         <td>
                             <input type="number" class="form-control total-profits-input" value="${user.totalProfits || 0}" data-id="${user.email}" />
                         </td>
@@ -449,6 +456,9 @@
                     const email = event.target.getAttribute('data-id');
                     const walletBalanceInput = document.querySelector(`.wallet-balance-input[data-id="${email}"]`);
                     const totalProfitsInput = document.querySelector(`.total-profits-input[data-id="${email}"]`);
+                    const totalDepositsInput = document.querySelector(`.total-deposits-input[data-id="${email}"]`);
+                    const totalWithdrawalsInput = document.querySelector(`.total-withdrawals-input[data-id="${email}"]`);
+
 
                     console.log(walletBalanceInput, totalProfitsInput, email)
                     if (!walletBalanceInput || !totalProfitsInput) {
@@ -459,6 +469,8 @@
                         email,
                         walletBalance: walletBalanceInput.value,
                         totalProfits: totalProfitsInput.value,
+                        totalDeposit: totalDepositsInput.value,
+                        totalWithdrawals: totalWithdrawalsInput.value,
                     };
 
                     console.log(updatedData)
